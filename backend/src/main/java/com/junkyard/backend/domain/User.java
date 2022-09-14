@@ -1,34 +1,20 @@
 package com.junkyard.backend.domain;
 
 public class User {
-    private Integer id;
-    private String name;
+    private String uid;
     private String email;
-    private String password;
-    private String phoneNumber;
 
-    public User(Integer id, String name, String email, String password, String phoneNumber) {
-        this.id = id;
-        this.name = name;
+    public User(String uid, String email) {
+        this.uid = uid;
         this.email = email;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
     }
 
-    public Integer getId() {
-        return id;
+    public String getUid() {
+        return uid;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getEmail() {
@@ -37,21 +23,5 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 }

@@ -22,14 +22,12 @@ public class UserResource {
 
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> registerUser(@RequestBody Map<String, Object> userMap) {
-        String name = (String) userMap.get("name");
+        String uid = (String) userMap.get("uid");
         String email = (String) userMap.get("email");
-        String password = (String) userMap.get("password");
-        String phoneNumber = (String) userMap.get("phoneNumber");
 
-        User user = userService.registerUser(name, email, password, phoneNumber);
-        Map<String, String> map = new HashMap<>();
-        map.put("data", user.getName()); // TODO: better api response handling
-        return new ResponseEntity<>(map, HttpStatus.OK);
+        User user = userService.registerUser(uid, email);
+        Map<String, String> response = new HashMap<>();
+        response.put("data", user.getUid()); // TODO: better api response handling
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
