@@ -36,14 +36,11 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/*">
-          <Route path="home" element={<PageLayout><Home /></PageLayout>} />
-          <Route path="garages" element={<PageLayout><Garages /></PageLayout>} />
-          <Route path="garage" element={<PageLayout><Garage /></PageLayout>} />
-          <Route path="items" element={<PageLayout><Items /></PageLayout>} />
-          <Route path="item" element={<PageLayout><Item /></PageLayout>} />
-          <Route path="*" element={<Navigate replace to="/home" />} />
-        </Route>
+        <Route path="home" element={<PageLayout><Home /></PageLayout>} />
+        <Route path="garages" element={<PageLayout><Garages /></PageLayout>} />
+        <Route path="garage" element={<PageLayout><Garage /></PageLayout>} />
+        <Route path="items" element={<PageLayout><Items /></PageLayout>} />
+        <Route path="item" element={<PageLayout><Item /></PageLayout>} />
         <Route path="auth/*">
           <Route path="login" element={<AuthLayout><Login /></AuthLayout>} />
           <Route path="register" element={<AuthLayout><Register /></AuthLayout>} />
@@ -63,7 +60,7 @@ function App() {
           <Route path="tier" element={<DashboardLayout><Tier /></DashboardLayout>} />
           <Route path="*" element={<Navigate replace to="/dashboard/home" />} />
         </Route>
-        <Route path="*" element={<Navigate replace to="/" />} />
+        <Route path="*" element={<Navigate replace to="/home" />} />
       </Routes>
       <Outlet />
     </div>

@@ -120,7 +120,10 @@ function DashboardLayout({children}) {
       <ThemeProvider theme={theme}>
         <Box sx={{ display: 'flex' }}>
           <CssBaseline />
-          <AppBar position="absolute">
+          <AppBar
+            position="absolute"
+            color="default"
+          >
             <Toolbar
               sx={{
                 pr: '24px', // keep right padding when drawer closed
