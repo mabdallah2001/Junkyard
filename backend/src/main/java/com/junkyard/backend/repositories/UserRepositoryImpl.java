@@ -5,18 +5,12 @@ import com.junkyard.backend.exceptions.AuthException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.Statement;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
 
-    private static final String SQL_CREATE = "INSERT INTO users (UID, EMAIL) VALUES(?, ?)";
+    private static final String SQL_CREATE = "INSERT INTO USERS (UID, EMAIL) VALUES(?, ?)";
     private static final String SQL_COUNT_BY_EMAIL = "SELECT COUNT(*) FROM USERS WHERE EMAIL = ?";
     private static final String SQL_COUNT_BY_UID = "SELECT COUNT(*) FROM USERS WHERE UID = ?";
     private static final String SQL_FIND_BY_UID = "SELECT * FROM USERS WHERE UID = ?";
