@@ -4,6 +4,7 @@ import com.junkyard.backend.domain.Garage;
 import com.junkyard.backend.domain.User;
 import com.junkyard.backend.repositories.GarageRepository;
 import com.junkyard.backend.services.GarageService;
+import com.junkyard.backend.services.GarageService;
 import com.junkyard.backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,16 +16,13 @@ import java.util.List;
 import java.util.Map;
 //controller/api
 @RestController
-@RequestMapping("/api/users")
-public class UserResource {
-
-    @Autowired
-    UserService userService;
+@RequestMapping("/api/garage")
+public class GarageResource {
 
     @Autowired
     GarageService garageService;
 
-    @PostMapping("/garage")
+    @PostMapping("/register")
     public ResponseEntity<Map<String, String>> registerGarage(@RequestBody Map<String, Object> userMap) {
         String name = (String) userMap.get("name");
         String location = (String) userMap.get("location");
@@ -34,19 +32,6 @@ public class UserResource {
 
         Map<String, String> map = new HashMap<>();
         map.put("data", garage.getName()); // TODO: better api response handling
-        return new ResponseEntity<>(map, HttpStatus.OK);
-    }
-
-    @PostMapping("/register")
-    public ResponseEntity<Map<String, String>> registerUser(@RequestBody Map<String, Object> userMap) {
-        String name = (String) userMap.get("name");
-        String email = (String) userMap.get("email");
-        String password = (String) userMap.get("password");
-        String phoneNumber = (String) userMap.get("phoneNumber");
-
-        User user = userService.registerUser(name, email, password, phoneNumber);
-        Map<String, String> map = new HashMap<>();
-        map.put("data", user.getName()); // TODO: better api response handling
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
