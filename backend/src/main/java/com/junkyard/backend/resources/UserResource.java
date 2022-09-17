@@ -24,18 +24,6 @@ public class UserResource {
     @Autowired
     GarageService garageService;
 
-    @PostMapping("/garage")
-    public ResponseEntity<Map<String, String>> registerGarage(@RequestBody Map<String, Object> userMap) {
-        String name = (String) userMap.get("name");
-        String location = (String) userMap.get("location");
-        String operatingHour = (String) userMap.get("operatingHour");
-        String details = (String) userMap.get("details");
-        Garage garage = garageService.registerGarage(name,location,operatingHour,details);
-
-        Map<String, String> map = new HashMap<>();
-        map.put("data", garage.getName()); // TODO: better api response handling
-        return new ResponseEntity<>(map, HttpStatus.OK);
-    }
 
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> registerUser(@RequestBody Map<String, Object> userMap) {

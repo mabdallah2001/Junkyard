@@ -32,12 +32,10 @@ public class GarageRepositoryImpl implements GarageRepository{
                 ps.setString(2, location);
                 ps.setString(3, operatingHour);
                 ps.setString(4, details);
-
                 return ps;
             }, keyHolder);
             return (Integer) keyHolder.getKeys().get("ID");
         } catch (Exception e) {
-            System.out.print(e.getMessage());
             throw new AuthException("Invalid details. Failed to create account");
 
         }

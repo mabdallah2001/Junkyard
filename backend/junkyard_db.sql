@@ -16,6 +16,7 @@ password text NOT NULL
 
 CREATE SEQUENCE users_seq increment 1 start 1;
 
+
 CREATE TABLE GARAGE(
 id INTEGER PRIMARY KEY NOT NULL,
 name VARCHAR(50) NOT NULL,
@@ -23,6 +24,8 @@ location VARCHAR(100) NOT NULL,
 operating_hour VARCHAR(200) NOT NULL,
 details VARCHAR(500) NOT NULL
 );
+
+CREATE SEQUENCE garage_seq increment 1 start 1;
 
 CREATE TABLE COMMENT(
 id INTEGER PRIMARY KEY NOT NULL,
