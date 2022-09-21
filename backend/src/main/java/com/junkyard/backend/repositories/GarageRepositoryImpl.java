@@ -19,23 +19,29 @@ public class GarageRepositoryImpl implements GarageRepository{
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    private static final String SQL_CREATE = "INSERT INTO GARAGE(ID, NAME, LOCATION, OPERATING_HOUR, DETAILS) VALUES(NEXTVAL('users_seq'), ?, ?, ?, ?)";
-    private static final String SQL_FIND_BY_ID = "SELECT ID, NAME, LOCATION, OPERATING_HOUR, DETAILS FROM GARAGE WHERE ID = ?";
+    private static final String SQL_CREATE = "INSERT INTO GARAGES(ID, NAME, IMAGE_URL, ADDRESS1, ADDRESS2, CITY, COUNTRY, POSTCODE, DESCRIPTION,USERID ) VALUES(NEXTVAL('users_seq'), ?, ?, ?, ?,?,?,?,?,?)";
+    private static final String SQL_FIND_BY_ID = "SELECT * FROM GARAGES WHERE ID = ?";
 
     @Override
-    public Integer create(String name, String location, String operatingHour, String details) throws AuthException {
+    public Integer create(String name, String imageURL, String address1,String address2,String city, String country, Integer postcode, String description, Integer userID) throws AuthException {
         try {
             KeyHolder keyHolder = new GeneratedKeyHolder();
             jdbcTemplate.update(connection -> {
                 PreparedStatement ps = connection.prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS);
                 ps.setString(1, name);
-                ps.setString(2, location);
-                ps.setString(3, operatingHour);
-                ps.setString(4, details);
+                ps.setString(2,imageURL);
+                ps.setString(3,address1);
+                ps.setString(4,address2);
+                ps.setString(5,city);
+                ps.setString(6,country);
+                ps.setInt(7,postcode);
+                ps.setString(8,description);
+                ps.setInt(9,userID);
                 return ps;
             }, keyHolder);
             return (Integer) keyHolder.getKeys().get("ID");
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             throw new AuthException("Invalid details. Failed to create account");
 
         }
@@ -49,9 +55,14 @@ public class GarageRepositoryImpl implements GarageRepository{
     private RowMapper<Garage> garageRowMapper = ((rs, rowNum) -> {
         return new Garage(rs.getInt("ID"),
                 rs.getString("NAME"),
-                rs.getString("LOCATION"),
-                rs.getString("OPERATING_HOUR"),
-                rs.getString("DETAILS")
+                rs.getString("IMAGE_URL"),
+                rs.getString("ADDRESS1"),
+                rs.getString("ADDRESS2"),
+                rs.getString("CITY"),
+                rs.getString("COUNTRY"),
+                rs.getInt("POSTCODE"),
+                rs.getString("DESCRIPTION"),
+                rs.getInt("USERID")
         );
     });
 
