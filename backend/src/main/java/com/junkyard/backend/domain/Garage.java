@@ -10,9 +10,9 @@ public class Garage {
     private String country;
     private int postcode;
     private String description;
-    private int userID;
+    private String  uid;
 
-    public Garage(int id, String name, String imageURL, String address1, String address2, String city, String country, int postcode, String description, int userID) {
+    public Garage(int id, String name, String imageURL, String address1, String address2, String city, String country, int postcode, String description, String uid) {
         this.id = id;
         this.name = name;
         this.imageURL = imageURL;
@@ -22,7 +22,7 @@ public class Garage {
         this.country = country;
         this.postcode = postcode;
         this.description = description;
-        this.userID = userID;
+        this.uid = uid;
     }
 
     public void setAddress2(String address2) {
@@ -45,8 +45,8 @@ public class Garage {
         this.description = description;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setUserID(String uid) {
+        this.uid = uid;
     }
 
 
@@ -103,7 +103,7 @@ public class Garage {
         return description;
     }
 
-    public int getUserID() {
-        return userID;
+    public String getUserID() {
+        return uid;
     }
 }

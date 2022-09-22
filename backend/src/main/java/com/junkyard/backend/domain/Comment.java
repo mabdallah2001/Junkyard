@@ -4,14 +4,14 @@ package com.junkyard.backend.domain;
 public class Comment {
     private Integer id;
     private String contents;
-    private Integer userID;
+    private String uid;
     private Integer garageID;
 
-    public Comment(Integer id, String contents, Integer userID, Integer garageID){
+    public Comment(Integer id, String contents, String uid, Integer garageID){
         this.id=id;
         this.garageID=garageID;
         this.contents=contents;
-        this.userID=userID;
+        this.uid=uid;
     }
 
     public Integer getCommentID() {
@@ -22,8 +22,8 @@ public class Comment {
         return contents;
     }
 
-    public Integer getUserID() {
-        return userID;
+    public String getUid() {
+        return uid;
     }
 
     public Integer getGarageID() {
@@ -38,8 +38,8 @@ public class Comment {
         this.contents = contents;
     }
 
-    public void setUserID(Integer userID) {
-        this.userID = userID;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public void setGarageID(Integer garageID) {

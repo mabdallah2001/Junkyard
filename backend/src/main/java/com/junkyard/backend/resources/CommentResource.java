@@ -25,8 +25,8 @@ public class CommentResource {
     public ResponseEntity<Map<String, String>> registerComment(@RequestBody Map<String, Object> userMap) {
         String content = (String) userMap.get("content");
         Integer garageID = (Integer) userMap.get("garageID");
-        Integer userID = (Integer) userMap.get("userID");
-        Comment comment = commentService.registerComment(content, garageID,userID );
+        String uid = (String) userMap.get("uid");
+        Comment comment = commentService.registerComment(content, uid,garageID );
 
         Map<String, String> map = new HashMap<>();
         map.put("data", comment.getContents()); // TODO: better api response handling

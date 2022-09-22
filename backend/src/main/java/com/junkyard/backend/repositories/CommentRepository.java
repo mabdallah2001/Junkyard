@@ -6,7 +6,7 @@ import com.junkyard.backend.domain.User;
 import com.junkyard.backend.exceptions.AuthException;
 
 public interface CommentRepository {
-    Integer create(String content, Integer userID, Integer garageID) throws AuthException;
+    Integer create(String content, String uid, Integer garageID) throws AuthException;
 
     Comment findById(Integer garageId);
 

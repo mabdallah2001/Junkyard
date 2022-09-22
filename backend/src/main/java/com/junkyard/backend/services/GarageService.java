@@ -5,6 +5,6 @@ import com.junkyard.backend.exceptions.AuthException;
 
 public interface GarageService {
 
-    Garage registerGarage(String name, String imageURL, String address1,String address2,String city, String country, Integer postcode, String description, Integer userID) throws AuthException;
+    Garage registerGarage(String name, String imageURL, String address1,String address2,String city, String country, Integer postcode, String description, String uid) throws AuthException;
 
 }

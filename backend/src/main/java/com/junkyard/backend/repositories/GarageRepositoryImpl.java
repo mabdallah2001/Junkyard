@@ -19,11 +19,11 @@ public class GarageRepositoryImpl implements GarageRepository{
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    private static final String SQL_CREATE = "INSERT INTO GARAGES(ID, NAME, IMAGE_URL, ADDRESS1, ADDRESS2, CITY, COUNTRY, POSTCODE, DESCRIPTION,USERID ) VALUES(NEXTVAL('users_seq'), ?, ?, ?, ?,?,?,?,?,?)";
+    private static final String SQL_CREATE = "INSERT INTO GARAGES(ID, NAME, IMAGE_URL, ADDRESS1, ADDRESS2, CITY, COUNTRY, POSTCODE, DESCRIPTION,UID ) VALUES(NEXTVAL('users_seq'), ?, ?, ?, ?,?,?,?,?,?)";
     private static final String SQL_FIND_BY_ID = "SELECT * FROM GARAGES WHERE ID = ?";
 
     @Override
-    public Integer create(String name, String imageURL, String address1,String address2,String city, String country, Integer postcode, String description, Integer userID) throws AuthException {
+    public Integer create(String name, String imageURL, String address1,String address2,String city, String country, Integer postcode, String description, String uid) throws AuthException {
         try {
             KeyHolder keyHolder = new GeneratedKeyHolder();
             jdbcTemplate.update(connection -> {
@@ -36,7 +36,7 @@ public class GarageRepositoryImpl implements GarageRepository{
                 ps.setString(6,country);
                 ps.setInt(7,postcode);
                 ps.setString(8,description);
-                ps.setInt(9,userID);
+                ps.setString(9,uid);
                 return ps;
             }, keyHolder);
             return (Integer) keyHolder.getKeys().get("ID");
@@ -62,7 +62,7 @@ public class GarageRepositoryImpl implements GarageRepository{
                 rs.getString("COUNTRY"),
                 rs.getInt("POSTCODE"),
                 rs.getString("DESCRIPTION"),
-                rs.getInt("USERID")
+                rs.getString("UID")
         );
     });
 

@@ -26,7 +26,7 @@ public class GarageResource {
     public ResponseEntity<Map<String, String>> registerGarage(@RequestBody Map<String, Object> commentMap) {
         String name = (String) commentMap.get("name");
         String imageURL = (String) commentMap.get("imageURL");
-        Integer userID = (Integer) commentMap.get("userID");
+        String uid = (String) commentMap.get("uid");
         String address1 =(String) commentMap.get("address1");
         String address2 = (String) commentMap.get("address2");
         String city = (String) commentMap.get("city");
@@ -34,8 +34,7 @@ public class GarageResource {
         Integer postcode =(Integer) commentMap.get("postcode");
         System.out.println(postcode.getClass().getSimpleName());
         String description = (String) commentMap.get("description");
-        Garage garage = garageService.registerGarage(name, imageURL, address1,address2, city,country,postcode,description,userID);
-
+        Garage garage = garageService.registerGarage(name, imageURL, address1,address2, city,country,postcode,description,uid);
         Map<String, String> map = new HashMap<>();
         map.put("data", garage.getName()); // TODO: better api response handling
         return new ResponseEntity<>(map, HttpStatus.OK);

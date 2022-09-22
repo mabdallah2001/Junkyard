@@ -15,8 +15,9 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     CommentRepository commentRepository;
     @Override
-    public Comment registerComment(String content, Integer userID, Integer garageID) throws AuthException {
-        Integer commentID = commentRepository.create(content, userID, garageID);
+    public Comment registerComment(String content, String uid, Integer garageID) throws AuthException {
+        Integer commentID = commentRepository.create(content, uid, garageID);
+        System.out.println(commentID);
         return commentRepository.findById(commentID);
     }
 }

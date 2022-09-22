@@ -16,8 +16,8 @@ public class GarageServicesImpl implements GarageService{
     GarageRepository garageRepository;
 
     @Override
-    public Garage registerGarage(String name, String imageURL, String address1, String address2, String city, String country, Integer postcode, String description, Integer userID) throws AuthException {
-        Integer garageId = garageRepository.create(name, imageURL, address1,address2, city,country,postcode,description, userID);
+    public Garage registerGarage(String name, String imageURL, String address1, String address2, String city, String country, Integer postcode, String description, String uid) throws AuthException {
+        Integer garageId = garageRepository.create(name, imageURL, address1,address2, city,country,postcode,description, uid);
         return garageRepository.findById(garageId);
     }
 
