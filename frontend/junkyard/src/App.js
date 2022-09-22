@@ -31,38 +31,56 @@ import DashboardItems from "./pages/Dashboard/Items";
 import ItemManager from "./pages/Dashboard/Item-Manager";
 import NewItem from "./pages/Dashboard/New-Item";
 import Tier from "./pages/Dashboard/Tier";
+import {AppControllerProvider, AuthControllerProvider, useAuthController} from "./context";
+
+function RoutesList() {
+  const [authController,] = useAuthController();
+  const { user } = authController;
+
+  return (
+    <Routes>
+      <Route path="home" element={<PageLayout><Home /></PageLayout>} />
+      <Route path="garages" element={<PageLayout><Garages /></PageLayout>} />
+      <Route path="garage" element={<PageLayout><Garage /></PageLayout>} />
+      <Route path="items" element={<PageLayout><Items /></PageLayout>} />
+      <Route path="item" element={<PageLayout><Item /></PageLayout>} />
+      <Route path="auth/*">
+        <Route path="login" element={<AuthLayout><Login /></AuthLayout>} />
+        <Route path="register" element={<AuthLayout><Register /></AuthLayout>} />
+        <Route path="reset" element={<AuthLayout><Reset /></AuthLayout>} />
+        <Route path="new-password" element={<AuthLayout><NewPassword /></AuthLayout>} />
+        <Route path="*" element={<Navigate replace to="/auth/login" />} />
+      </Route>
+      { user ?
+        <Route path="dashboard/*">
+        <Route path="home" element={<DashboardLayout><DashboardHome /></DashboardLayout>} />
+        <Route path="account" element={<DashboardLayout><Account /></DashboardLayout>} />
+        <Route path="analytics" element={<DashboardLayout><Analytics /></DashboardLayout>} />
+        <Route path="garages" element={<DashboardLayout><DashboardGarages /></DashboardLayout>} />
+        <Route path="garage" element={<DashboardLayout><DashboardGarage /></DashboardLayout>} />
+        <Route path="items" element={<DashboardLayout><DashboardItems /></DashboardLayout>} />
+        <Route path="new-item" element={<DashboardLayout><NewItem /></DashboardLayout>} />
+        <Route path="item-manager" element={<DashboardLayout><ItemManager /></DashboardLayout>} />
+        <Route path="tier" element={<DashboardLayout><Tier /></DashboardLayout>} />
+        <Route path="*" element={<Navigate replace to="/dashboard/home" />} />
+      </Route>
+        :
+        null
+      }
+      <Route path="*" element={<Navigate replace to="/home" />} />
+    </Routes>
+  )
+}
 
 function App() {
   return (
     <div className="App">
-      <Routes>
-        <Route path="home" element={<PageLayout><Home /></PageLayout>} />
-        <Route path="garages" element={<PageLayout><Garages /></PageLayout>} />
-        <Route path="garage" element={<PageLayout><Garage /></PageLayout>} />
-        <Route path="items" element={<PageLayout><Items /></PageLayout>} />
-        <Route path="item" element={<PageLayout><Item /></PageLayout>} />
-        <Route path="auth/*">
-          <Route path="login" element={<AuthLayout><Login /></AuthLayout>} />
-          <Route path="register" element={<AuthLayout><Register /></AuthLayout>} />
-          <Route path="reset" element={<AuthLayout><Reset /></AuthLayout>} />
-          <Route path="new-password" element={<AuthLayout><NewPassword /></AuthLayout>} />
-          <Route path="*" element={<Navigate replace to="/auth/login" />} />
-        </Route>
-        <Route path="dashboard/*">
-          <Route path="home" element={<DashboardLayout><DashboardHome /></DashboardLayout>} />
-          <Route path="account" element={<DashboardLayout><Account /></DashboardLayout>} />
-          <Route path="analytics" element={<DashboardLayout><Analytics /></DashboardLayout>} />
-          <Route path="garages" element={<DashboardLayout><DashboardGarages /></DashboardLayout>} />
-          <Route path="garage" element={<DashboardLayout><DashboardGarage /></DashboardLayout>} />
-          <Route path="items" element={<DashboardLayout><DashboardItems /></DashboardLayout>} />
-          <Route path="new-item" element={<DashboardLayout><NewItem /></DashboardLayout>} />
-          <Route path="item-manager" element={<DashboardLayout><ItemManager /></DashboardLayout>} />
-          <Route path="tier" element={<DashboardLayout><Tier /></DashboardLayout>} />
-          <Route path="*" element={<Navigate replace to="/dashboard/home" />} />
-        </Route>
-        <Route path="*" element={<Navigate replace to="/home" />} />
-      </Routes>
-      <Outlet />
+      <AppControllerProvider>
+        <AuthControllerProvider>
+          <RoutesList />
+          <Outlet />
+        </AuthControllerProvider>
+      </AppControllerProvider>
     </div>
   );
 }
