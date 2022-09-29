@@ -12,7 +12,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {auth} from '../../../firebase';
 import {
-  createUserWithEmailAndPassword,
+  createUserWithEmailAndPassword,updateProfile
 } from "firebase/auth";
 import { useState } from "react";
 
@@ -35,6 +35,7 @@ export default function Register() {
 
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
+  const [registerName, setRegisterName] = useState("");
 
   const register = async () => {
     try {
@@ -42,7 +43,11 @@ export default function Register() {
         auth,
         registerEmail,
         registerPassword
-      );
+      ).than(()=>{
+        return updateProfile(auth.currentUser,{
+          displayName :registerName,
+        })
+      });
       console.log(user);
     } catch (error) {
       console.log(error.message);
@@ -68,29 +73,23 @@ export default function Register() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={register} sx={{ mt: 3 }}>
+          <Box component="form" noValidate sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="Name"
                   required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
+                  id="Name"
+                  label="Name"
                   autoFocus
+                  onChange={(event) => {
+                    setRegisterName(event.target.value);
+                  }}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                />
-              </Grid>
+            
               <Grid item xs={12}>
                 <TextField
                   required
@@ -120,7 +119,7 @@ export default function Register() {
               </Grid>
             </Grid>
             <Button
-              type="submit"
+              onClick={register}
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
