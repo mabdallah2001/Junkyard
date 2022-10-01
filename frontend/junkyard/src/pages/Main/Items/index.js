@@ -1,8 +1,8 @@
+import ItemCard from "../../../components/ItemContainer/index";
+
 function Items() {
   return (
-    <>
-      Item List
-    </>
+    <ItemCard />
   )
 }
 export default Items;
