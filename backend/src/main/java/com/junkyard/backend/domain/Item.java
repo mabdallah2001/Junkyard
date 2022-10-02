@@ -1,23 +1,30 @@
 package com.junkyard.backend.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.math.BigDecimal;
 
 public class Item {
     private Integer id;
     private String name;
     private int quantity;
-    private BigDecimal imageURL;
+    @JsonProperty("image_url")
+    private String imageUrl;
     private String description;
-    private double price;
+    private BigDecimal price;
+    @JsonProperty("garage_id")
+    private int garageId;
     private String uid;
 
-    public Item(Integer id, String name, int quantity, BigDecimal imageURL, String description, double price, String uid) {
+
+    public Item(Integer id, String name, int quantity, String imageUrl, String description, BigDecimal price, int garageId, String uid) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
-        this.imageURL = imageURL;
+        this.imageUrl = imageUrl;
         this.description = description;
         this.price = price;
+        this.garageId = garageId;
         this.uid = uid;
     }
 
@@ -45,12 +52,12 @@ public class Item {
         this.quantity = quantity;
     }
 
-    public BigDecimal getImageURL() {
-        return imageURL;
+    public String getImageURL() {
+        return imageUrl;
     }
 
-    public void setImageURL(BigDecimal imageURL) {
-        this.imageURL = imageURL;
+    public void setImageURL(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getDescription() {
@@ -61,11 +68,28 @@ public class Item {
         this.description = description;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
+
+    public int getGarageId() {
+        return garageId;
+    }
+
+    public void setGarageId(int garageId) {
+        this.garageId = garageId;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
 }
