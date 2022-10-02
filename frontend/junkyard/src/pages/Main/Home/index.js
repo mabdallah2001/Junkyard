@@ -1,5 +1,6 @@
 import {useState} from 'react';
 
+// MUI
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
@@ -7,10 +8,12 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import { Stack } from '@mui/system';
+import Stack from '@mui/material/Stack';
 
+// React router
 import { useNavigate } from "react-router-dom";
 
+// Toast
 import {toast} from 'react-toastify';
 
 function Home() {
@@ -27,10 +30,10 @@ function Home() {
       return;
     };
     if (queryType === 'garage') {
-      return navigate(`/garages?query="${query}"`);
+      return navigate(`/garages?query=${query}`);
     }
     if (queryType === 'item') {
-      return navigate(`/items?query="${query}"`);
+      return navigate(`/items?query=${query}`);
     }
   }
 
