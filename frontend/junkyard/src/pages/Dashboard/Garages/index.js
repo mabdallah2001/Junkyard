@@ -15,6 +15,8 @@ function Garages() {
     setImageURL(["https://www.thespruce.com/thmb/OSikhwOUp996sGOElb_FwcgkwSs=/2576x2576/smart/filters:no_upscale()/upscale-residential-house-has-neat-garage-168531302-588389105f9b58bdb36b0226.jpg", "http://www.outdoorgaragesandsheds.com.au/wp-content/uploads/2017/04/IMG_0209.jpg"])
   });
 
+  const [data, setData] = useState([]);
+
   const [garID, setGarID] = useState([]);
   const [garName, setGarName] = useState([]);
   const [imageURL, setImageURL] = useState([]);
@@ -82,7 +84,7 @@ function Garages() {
         </Typography>
         <br></br>
 
-        <Grid container>
+        <Grid container >
 
           
 
@@ -107,7 +109,43 @@ function Garages() {
 
     </Grid>
     
-    {garageCard()}
+    {/* {garageCard()} */}
+
+    {data.map((item, idx) => (
+    <Grid item xs={12} md={12} key={idx}>
+      <Card sx={{ maxWidth: 250}}>
+            <CardActionArea>
+              <CardMedia
+                component="img"
+                height="250"
+                image= {item.imageURL}
+                alt="garage_pic"
+              />
+            <CardContent>
+              <Typography gutterBottom variant="h6" component="div">
+                {item.garName}
+              </Typography>
+              
+    
+            <Grid container>
+              <Grid item ml={11} >
+    
+    
+              <Button size="small" onClick={() => navigate("/dashboard/garage")}>Edit</Button>
+              <Button size="small">Delete</Button>
+    
+              </Grid>
+            </Grid>
+    
+             
+            </CardContent>
+          </CardActionArea>
+        </Card>
+
+
+    
+        </Grid>
+    ))}
 
 
 
