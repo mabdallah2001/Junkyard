@@ -14,79 +14,81 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/items")
 public class ItemResource {
 
-    @Autowired
-    ItemService itemService;
+  @Autowired
+  ItemService itemService;
 
-    @PostMapping("/")
-    public ResponseEntity<Item> createItem(@RequestBody Map<String, Object> itemMap) throws InternalServerErrorException {
-        String name = (String) itemMap.get("name");
-        int quantity = (Integer) itemMap.get("quantity");
-        String imageURL = (String) itemMap.get("image_url");
-        String description = (String) itemMap.get("description");
-        int garageId = (Integer) itemMap.get("garage_id");
-        String uid = (String) itemMap.get("uid");
+  @PostMapping("/")
+  public ResponseEntity<Item> createItem(@RequestBody Map<String, Object> itemMap) throws InternalServerErrorException {
+    String name = (String) itemMap.get("name");
+    int quantity = Integer.parseInt((String) itemMap.get("quantity"));
+    String imageURL = (String) itemMap.get("image_url");
+    String description = (String) itemMap.get("description");
+    int garageId = (Integer) itemMap.get("garage_id");
+    String uid = (String) itemMap.get("uid");
 
-        Double priceInDouble = (Double) itemMap.get("price");
-        BigDecimal price = BigDecimal.valueOf(priceInDouble);
+    Double priceInDouble = Double.parseDouble((String) itemMap.get("price"));
+    BigDecimal price = BigDecimal.valueOf(priceInDouble);
 
+    Item item = itemService.createItem(name, quantity, imageURL, description, price, garageId, uid);
+    return ResponseEntity.ok(item);
+  }
 
-        Item item = itemService.createItem(name, quantity, imageURL, description, price, garageId, uid);
-        return ResponseEntity.ok(item);
+  @GetMapping("/{id}")
+  public ResponseEntity<Item> getItem(@PathVariable int id) throws NotFoundException {
+    Item item = itemService.getItem(id);
+
+    if (item != null) {
+      return ResponseEntity.ok(item);
+    } else {
+      throw new NotFoundException("No record found.");
     }
+  }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Item> getItem(@PathVariable int id) throws NotFoundException {
-        Item item = itemService.getItem(id);
+  @GetMapping("/")
+  public ResponseEntity<List<Map<String, Object>>> getItems() throws NotFoundException {
+    List<Map<String, Object>> items = itemService.getItems();
 
-        if (item != null) {
-            return ResponseEntity.ok(item);
-        } else {
-            throw new NotFoundException("No record found.");
-        }
+    if (items != null) {
+      return ResponseEntity.ok(items);
+    } else {
+      throw new NotFoundException("No record found.");
     }
+  }
 
-    @GetMapping("/")
-    public ResponseEntity<List<Map<String, Object>>> getItems() throws NotFoundException {
-        List<Map<String, Object>> items = itemService.getItems();
+  @PutMapping("/{id}")
+  public ResponseEntity<Item> updateItem(@PathVariable int id, @RequestBody Map<String, Object> itemMap)
+      throws InternalServerErrorException {
+    String name = (String) itemMap.get("name");
+    int quantity = Integer.parseInt((String) itemMap.get("quantity"));
+    String imageURL = (String) itemMap.get("image_url");
+    String description = (String) itemMap.get("description");
+    int garageId = (Integer) itemMap.get("garage_id");
+    String uid = (String) itemMap.get("uid");
 
-        if (items != null) {
-            return ResponseEntity.ok(items);
-        } else {
-            throw new NotFoundException("No record found.");
-        }
+    Double priceInDouble = Double.parseDouble((String) itemMap.get("price"));
+    BigDecimal price = BigDecimal.valueOf(priceInDouble);
+
+
+    Item item = itemService.updateItem(id, name, quantity, imageURL, description, price, garageId, uid);
+
+    if (item != null) {
+      return ResponseEntity.ok(item);
+    } else {
+      throw new InternalServerErrorException("Something went wrong.");
     }
+  }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Item> updateItem(@PathVariable int id, @RequestBody Map<String, Object> itemMap) throws InternalServerErrorException {
-        String name = (String) itemMap.get("name");
-        int quantity = (Integer) itemMap.get("quantity");
-        String imageURL = (String) itemMap.get("image_url");
-        String description = (String) itemMap.get("description");
-        int garageId = (Integer) itemMap.get("garage_id");
-        String uid = (String) itemMap.get("uid");
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Object> deleteItem(@PathVariable int id) throws NotFoundException {
+    itemService.deleteItem(id);
 
-        Double priceInDouble = (Double) itemMap.get("price");
-        BigDecimal price = BigDecimal.valueOf(priceInDouble);
-
-        Item item = itemService.updateItem(id, name, quantity, imageURL, description, price, garageId, uid);
-
-        if (item != null) {
-            return ResponseEntity.ok(item);
-        } else {
-            throw new InternalServerErrorException("Something went wrong.");
-        }
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteItem(@PathVariable int id) throws NotFoundException {
-        itemService.deleteItem(id);
-
-        HashMap<String, String> response = new HashMap<>();
-        response.put("data", "success");
-        return ResponseEntity.ok(response);
-    }
+    HashMap<String, String> response = new HashMap<>();
+    response.put("data", "success");
+    return ResponseEntity.ok(response);
+  }
 }

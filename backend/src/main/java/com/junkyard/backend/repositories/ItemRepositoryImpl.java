@@ -24,7 +24,7 @@ public class ItemRepositoryImpl implements ItemRepository {
     private static final String SQL_CREATE = "INSERT INTO items(id, name, quantity, image_url, description, price, garage_id, uid) " +
             "VALUES(NEXTVAL('items_seq'), ?, ?, ?, ?, ?, ?, ?)";
     private static final String SQL_FIND_BY_ID = "SELECT * FROM items WHERE id = ?";
-    private static final String SQL_FIND_ALL = "SELECT * FROM items";
+    private static final String SQL_FIND_ALL = "SELECT * FROM items ORDER BY id ASC";
     private static final String SQL_UPDATE_BY_ID = "UPDATE items SET name = ?,  quantity = ?, image_url = ?, " +
             "description = ?, price = ?, garage_id = ?, uid = ? WHERE id = ?";
     private static final String SQL_DELETE_BY_ID = "DELETE FROM items WHERE id = ?";
