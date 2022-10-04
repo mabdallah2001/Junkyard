@@ -34,11 +34,7 @@ const Form = ({ action, id, item }) => {
       body: JSON.stringify(values)
     })
       .then((response) => response.json())
-      .then((res) => {
-        console.log(res)
-        debugger
-        window.location.href = "/dashboard/items"
-      })
+      .then((res) => window.location.href = "/dashboard/items")
       .catch(error =>console.log(error)
     )
   }
