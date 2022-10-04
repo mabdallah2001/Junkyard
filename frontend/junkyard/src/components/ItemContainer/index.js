@@ -11,45 +11,45 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {useAppController, useAuthController, setDarkMode} from "../../../src/context";
 import { CssBaseline } from '@mui/material';
 
-function ItemCard({ children }) {
-    const [controller, dispatch] = useAppController();
-    const { darkMode } = controller;
+function ItemCard({ item }) {
+  const [controller, dispatch] = useAppController();
+  const { darkMode } = controller;
     
 
-    const theme = useMemo(
-        () =>
-          createTheme({
-            palette: {
-              mode: darkMode ? 'dark' : 'light',
-            },
-          }),
-        [darkMode],
-      );
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: darkMode ? 'dark' : 'light',
+        },
+      }),
+    [darkMode],
+  );
 
-    return (
-        <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Card sx={{ maxWidth: 345 }}>
-                <CardActionArea>
-                    <CardMedia
-                    component="img"
-                    height="140"
-                    image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
-                    alt="green iguana"
-                    />
-                    <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                        Lizard
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                        Lizards are a widespread group of squamate reptiles, with over 6,000
-                        species, ranging across all continents except Antarctica
-                    </Typography>
-                    </CardContent>
-                </CardActionArea>
-            </Card>
-        </ThemeProvider>
-    )
+
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Card sx={{ maxWidth: 345 }}>
+        <CardActionArea>
+          <CardMedia
+          component="img"
+          height="140"
+          image={ item.image_url}
+          alt="item image"
+          />
+          <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            { item.name }
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            { item.description }
+          </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </ThemeProvider>
+  )
 
 }
 

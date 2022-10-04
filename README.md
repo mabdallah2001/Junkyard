@@ -50,3 +50,11 @@ $ docker container exec -it postgresdb bash
 $ ls
 $ psql -U postgres --file junkyard_db.sql 
 ```
+
+### Seed database
+1. Navigate to backend folder
+2. Run this script
+```
+psql junkyarddb < junkyard_db_seed.sql
+```
+3. Please add more (dummy) data as you work on your own feature

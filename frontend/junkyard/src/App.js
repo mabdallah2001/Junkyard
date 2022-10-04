@@ -26,7 +26,9 @@ import DashboardGarages from "./pages/Dashboard/Garages";
 import DashboardGarage from "./pages/Dashboard/Garage";
 import DashboardItems from "./pages/Dashboard/Items";
 import ItemManager from "./pages/Dashboard/Item-Manager";
-import NewItem from "./pages/Dashboard/New-Item";
+import NewItem from "./pages/Dashboard/New-Item/new";
+import EditItem from "./pages/Dashboard/New-Item/edit";
+import ItemDetails from "./pages/Dashboard/Items/details";
 import Tier from "./pages/Dashboard/Tier";
 
 // Context
@@ -69,10 +71,12 @@ function RoutesList() {
           <Route path="garages" element={<DashboardLayout><DashboardGarages /></DashboardLayout>} />
           <Route path="garage" element={<DashboardLayout><DashboardGarage /></DashboardLayout>} />
           <Route path="items" element={<DashboardLayout><DashboardItems /></DashboardLayout>} />
+          <Route path="item/:id" element={<DashboardLayout><ItemDetails /></DashboardLayout>} />
           <Route path="new-item" element={<DashboardLayout><NewItem /></DashboardLayout>} />
+          <Route path="edit-item/:id" element={<DashboardLayout><EditItem /></DashboardLayout>} />
           <Route path="item-manager" element={<DashboardLayout><ItemManager /></DashboardLayout>} />
           <Route path="tier" element={<DashboardLayout><Tier /></DashboardLayout>} />
-          <Route path="*" element={<Navigate replace to="/dashboard/home" />} />
+        <Route path="*" element={<Navigate replace to="/dashboard/home" />} />
         </Route>
       }
       <Route path="*" element={<Navigate replace to="/home" />} />
