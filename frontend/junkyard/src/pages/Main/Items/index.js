@@ -12,7 +12,7 @@ const Items = () => {
       headers: { 'Content-Type': 'application/json' }
     })
       .then(response => response.json())
-      .then(resp => setItems([...resp, ...resp])) // TO BE REMOVED
+      .then(resp => setItems(resp))
       .catch(error =>console.log(error)
     )
   }
@@ -25,7 +25,7 @@ const Items = () => {
     <Container maxWidth="lg">
       <Grid container spacing={3}>
         {items.map(item => (
-          <Grid item sm={4} md={4}>
+          <Grid item sm={4} md={4} key={item.id}>
             <ItemCard key={item.id} item={item} />
           </Grid>
         ))}
