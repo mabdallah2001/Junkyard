@@ -18,6 +18,8 @@ import {
 import { auth } from '../../../firebase';
 import { useState } from "react";
 
+import {toast} from 'react-toastify';
+
 
 function Copyright(props) {
   return (
@@ -46,14 +48,13 @@ const [emailInValid,setEmailInValid] = useState(false);
     console.log("1");
   
     try {
-      const user = await signInWithEmailAndPassword(
+      await signInWithEmailAndPassword(
         auth,
         loginEmail,
         loginPassword
       );
-      console.log(user);
     } catch (error) {
-      console.log(error.message);
+      toast.error(`Error logging in: ${error.message}`);
     }
   };
 

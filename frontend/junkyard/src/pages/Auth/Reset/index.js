@@ -53,7 +53,7 @@ const [emailInValid,setEmailInValid] = useState(false);
   };
 
   function validEmail(EmailAddress){
-    let res = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(setEmailAddress);
+    let res = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(EmailAddress);
     setEmailInValid(!res);
     if(res){
       setEmailAddress(EmailAddress);
