@@ -18,12 +18,17 @@ import List from '@mui/material/List';
 import MenuIcon from '@mui/icons-material/Menu';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 // Menu items
 import { mainListItems } from './menuItems';
 
 // Context
-import {setDarkMode, useAppController} from "../../../context";
+import {setDarkMode, useAppController, useAuthController, logout} from "../../../context";
+
+// Firebase
+import { auth } from '../../../firebase';
+import { signOut } from 'firebase/auth'
 
 // Constants
 const drawerWidth = 240;
@@ -85,6 +90,8 @@ function DashboardLayout({children}) {
   const [controller, dispatch] = useAppController();
   const {darkMode} = controller;
 
+  const [, authDispatch] = useAuthController();
+
   // Create theme
   const theme = useMemo(
     () =>
@@ -99,6 +106,12 @@ function DashboardLayout({children}) {
   // Theme toggles
   function toggleMode() {
     setDarkMode(dispatch, !darkMode);
+  }
+
+  function handleLogout() {
+    signOut(auth).then(() => {
+      logout(authDispatch);
+    })
   }
 
   return (
@@ -134,6 +147,9 @@ function DashboardLayout({children}) {
             </Typography>
             <IconButton sx={{ ml: 1 }} onClick={toggleMode} color="inherit">
               {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+            </IconButton>
+            <IconButton sx={{ ml: 1 }} onClick={handleLogout} color="inherit">
+              <LogoutIcon />
             </IconButton>
           </Toolbar>
         </AppBar>

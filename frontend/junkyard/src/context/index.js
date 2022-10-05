@@ -1,15 +1,10 @@
 import React, {createContext, useContext, useMemo, useReducer} from "react";
-import { getAuth } from "firebase/auth";
 
 // The app context
 const App = createContext();
 
 // The auth context
 const Auth = createContext();
-
-//firebase user state
-const auth = getAuth();
-const user = auth.currentUser;
 
 App.displayName = "AppContext";
 Auth.displayName = "AuthContext";

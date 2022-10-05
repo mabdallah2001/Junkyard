@@ -1,4 +1,6 @@
-import * as React from 'react';
+import { useState } from "react";
+
+// MUI
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,53 +12,39 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+// Firebase
+import { auth } from '../../../firebase';
 import {
   sendPasswordResetEmail
 } from "firebase/auth";
-import { auth } from '../../../firebase';
-import { useState } from "react";
 
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        junkyard
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+// Toast
+import { toast } from 'react-toastify';
 
 const theme = createTheme();
 
-
 export default function Reset() {
 
-const [EmailAddress, setEmailAddress] = useState("");
+const [email, setEmail] = useState("");
 const [emailInValid,setEmailInValid] = useState(false);
 
   const reset = async () => {
-    
-  
     try {
-      const user = await sendPasswordResetEmail(
+      await sendPasswordResetEmail(
         auth,
-        EmailAddress
+        email
       );
-      console.log(user);
     } catch (error) {
-      console.log(error.message);
+      toast.error(`Error resetting password: ${error.message}`);
     }
   };
 
   function validEmail(EmailAddress){
-    let res = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(EmailAddress);
+    let res = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(EmailAddress);
     setEmailInValid(!res);
     if(res){
-      setEmailAddress(EmailAddress);
+      setEmail(EmailAddress);
     }
   }
 
@@ -79,8 +67,7 @@ const [emailInValid,setEmailInValid] = useState(false);
             Type your Email Address for resect link
           </Typography>
           <Box component="form" noValidate sx={{ mt: 1 }}>
-         
-          <TextField
+            <TextField
               margin="normal"
               required
               fullWidth
@@ -95,10 +82,7 @@ const [emailInValid,setEmailInValid] = useState(false);
                 validEmail(event.target.value);
               }}
             />
-            
-         
             <Button
-              
               fullWidth
               variant="contained"
               onClick={reset}
@@ -115,7 +99,6 @@ const [emailInValid,setEmailInValid] = useState(false);
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
   );
