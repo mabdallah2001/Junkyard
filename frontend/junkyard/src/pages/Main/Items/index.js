@@ -30,22 +30,11 @@ function Items() {
   useEffect(() => {
     let mounted = true;
     setQuerySearched(false);
-    
-    const fetchItems = async () => {
-      return await fetch("http://localhost:8080/api/items/", { 
-        method: "GET",
-        headers: { 'Content-Type': 'application/json' }
-      })
-        .then(response => response.json())
-        .then(resp => setItems(resp))
-        .catch(error =>console.log(error)
-      )
-    }
 
     const fetchData = async () => {
       if (searchParams.get("query")) {
         // TODO: API fetch query
-        await fetch("http://localhost:8080/api/items/", { 
+        await fetch("http://localhost:8080/api/items/", {
           method: "GET",
           headers: { 'Content-Type': 'application/json' }
         })
@@ -53,17 +42,14 @@ function Items() {
           .then(resp => {
             if(mounted) {
               setData(resp);
-              setQuerySearched(true);
             }
           })
           .catch((e) => {
             toast.error(`Error fetching data: ${e}`);
-            setQuerySearched(true)
           })
-        )
       } else {
         // TODO: API fetch default garages
-        await fetch("http://localhost:8080/api/items/", { 
+        await fetch("http://localhost:8080/api/items/", {
           method: "GET",
           headers: { 'Content-Type': 'application/json' }
         })
@@ -71,18 +57,15 @@ function Items() {
           .then(resp => {
             if(mounted) {
               setData(resp);
-              setQuerySearched(true);
             }
           })
           .catch((e) => {
             toast.error(`Error fetching data: ${e}`);
-            setQuerySearched(true)
           })
-        )
       }
     }
 
-    fetchData();
+    fetchData().then(() => setQuerySearched(true));
 
     return(() => mounted = false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
