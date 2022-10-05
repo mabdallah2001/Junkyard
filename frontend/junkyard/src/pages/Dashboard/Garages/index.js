@@ -6,6 +6,11 @@ import { Button, CardActionArea } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { useNavigate } from "react-router-dom";
 import {useState, useEffect} from "react"
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 const dummyData = [
   {
@@ -29,6 +34,24 @@ function Garages() {
   const navigate = useNavigate();
 
   const [data, setData] = useState(dummyData);
+
+  const [open, setOpen] = useState(false);
+
+  const [deleteID, setDeleteID] = useState()
+
+  const handleClickOpen = (garID) => {
+    setOpen(true);
+    setDeleteID(garID);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const deleteFunc = (garID) => {
+    setData((prevState) => prevState.filter((item) => item.id !== garID));
+    setOpen(false);
+  }
 
   return (
     <>
@@ -55,7 +78,7 @@ function Garages() {
         </Grid>
         {data.map((item, idx) => (
           <Grid item key={idx} xs={3}>
-            <Card sx={{ maxWidth: 250}}>
+            <Card sx={{ maxWidth: 250}} onClick={() => navigate(`/dashboard/item-manager?id=${item.id}`)}>
               <CardActionArea>
                 <CardMedia
                   component="img"
@@ -70,7 +93,7 @@ function Garages() {
                 <Grid container>
                   <Grid item ml={11} >
                     <Button size="small" onClick={() => navigate(`/dashboard/garage?gid=${item.id}`)}>Edit</Button>
-                    <Button size="small">Delete</Button>
+                    <Button size="small" onClick={() => handleClickOpen(item.id)}>Delete</Button>
                   </Grid>
                 </Grid>
                 </CardContent>
@@ -79,6 +102,27 @@ function Garages() {
           </Grid>
         ))}
       </Grid>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Delete Garage?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to delete this Garage? This is an irreversible operation. Deleting garage will also delete all items that might be inside it.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={() => deleteFunc(deleteID)} autoFocus>
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   )
 }
