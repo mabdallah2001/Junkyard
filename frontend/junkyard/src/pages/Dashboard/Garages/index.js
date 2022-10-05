@@ -7,217 +7,78 @@ import Grid from '@mui/material/Grid';
 import { useNavigate } from "react-router-dom";
 import {useState, useEffect} from "react"
 
+const dummyData = [
+  {
+    id: 1,
+    name: "Garage Name 1",
+    image: "https://source.unsplash.com/random"
+  },
+  {
+    id: 2,
+    name: "Garage Name 2",
+    image: "https://source.unsplash.com/random"
+  },
+  {
+    id: 3,
+    name: "Garage Name 3",
+    image: "https://source.unsplash.com/random"
+  }
+]
+
 function Garages() {
   const navigate = useNavigate();
-  useEffect(() => {
-    setGarID([1,2]);
-    setGarName(["Camperdown", "Manly"]);
-    setImageURL(["https://www.thespruce.com/thmb/OSikhwOUp996sGOElb_FwcgkwSs=/2576x2576/smart/filters:no_upscale()/upscale-residential-house-has-neat-garage-168531302-588389105f9b58bdb36b0226.jpg", "http://www.outdoorgaragesandsheds.com.au/wp-content/uploads/2017/04/IMG_0209.jpg"])
-  });
 
-  const [data, setData] = useState([]);
-
-  const [garID, setGarID] = useState([]);
-  const [garName, setGarName] = useState([]);
-  const [imageURL, setImageURL] = useState([]);
-
-  const garageCard = () => {
-    var output = []
-    for(let i = 0; i < garID.length; i++){
-      var garItem = (
-        <Grid item xs={12}>
-
-        <Card sx={{ maxWidth: 250}}>
-            <CardActionArea>
-              <CardMedia
-                component="img"
-                height="250"
-                image= {imageURL[i]}
-                alt="garage_pic"
-              />
-            <CardContent>
-              <Typography gutterBottom variant="h6" component="div">
-                {garName[i]}
-              </Typography>
-              
-    
-            <Grid container>
-              <Grid item ml={11} >
-    
-    
-              <Button size="small" onClick={() => navigate("/dashboard/garage")}>Edit</Button>
-              <Button size="small">Delete</Button>
-    
-              </Grid>
-            </Grid>
-    
-             
-            </CardContent>
-          </CardActionArea>
-        </Card>
-
-
-    
-        </Grid>
-
-      );
-
-      output[i] = (garItem);
-
-
-    }
-
-    return(
-      <div>
-        {output}
-      </div>
-    );
-
-
-  }
+  const [data, setData] = useState(dummyData);
 
   return (
     <>
-        <br></br>
-        <Typography variant="h5" gutterBottom>
-          Your Garages
-        </Typography>
-        <br></br>
-
-        <Grid container >
-
-          
-
+      <Typography variant="h5" gutterBottom mb={2}>
+        Your Garages
+      </Typography>
+      <Grid container spacing={2}>
         <Grid item xs={3}>
-
-        <Card sx={{ maxWidth: 250, height:351}} onClick={ () => navigate("/dashboard/garage")}>
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            height="250"
-            image="https://findicons.com/files/icons/1014/ivista/256/plus.png"
-            alt="garage_pic"
-          />
-        <CardContent>
-          <Typography gutterBottom variant="h6" component="div">
-            Add Garage
-          </Typography>
-         
-        </CardContent>
-      </CardActionArea>
-    </Card>
-
-    </Grid>
-    
-    {/* {garageCard()} */}
-
-    {data.map((item, idx) => (
-    <Grid item xs={12} md={12} key={idx}>
-      <Card sx={{ maxWidth: 250}}>
+          <Card sx={{ maxWidth: 250, height:351}} onClick={ () => navigate("/dashboard/garage")}>
             <CardActionArea>
               <CardMedia
                 component="img"
                 height="250"
-                image= {item.imageURL}
+                image="https://findicons.com/files/icons/1014/ivista/256/plus.png"
                 alt="garage_pic"
               />
-            <CardContent>
-              <Typography gutterBottom variant="h6" component="div">
-                {item.garName}
-              </Typography>
-              
-    
-            <Grid container>
-              <Grid item ml={11} >
-    
-    
-              <Button size="small" onClick={() => navigate("/dashboard/garage")}>Edit</Button>
-              <Button size="small">Delete</Button>
-    
-              </Grid>
-            </Grid>
-    
-             
-            </CardContent>
-          </CardActionArea>
-        </Card>
-
-
-    
+              <CardContent>
+                <Typography gutterBottom variant="h6" component="div">
+                  Add Garage
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
         </Grid>
-    ))}
-
-
-
-
-    {/* <Grid item xs={3}>
-
-    <Card sx={{ maxWidth: 250}}>
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            height="250"
-            image="https://www.thespruce.com/thmb/OSikhwOUp996sGOElb_FwcgkwSs=/2576x2576/smart/filters:no_upscale()/upscale-residential-house-has-neat-garage-168531302-588389105f9b58bdb36b0226.jpg"
-            alt="garage_pic"
-          />
-        <CardContent>
-          <Typography gutterBottom variant="h6" component="div">
-            Camperdown
-          </Typography>
-          
-
-        <Grid container>
-          <Grid item ml={11} >
-
-
-          <Button size="small" onClick={() => navigate("/dashboard/garage")}>Edit</Button>
-          <Button size="small">Delete</Button>
-
+        {data.map((item, idx) => (
+          <Grid item key={idx} xs={3}>
+            <Card sx={{ maxWidth: 250}}>
+              <CardActionArea>
+                <CardMedia
+                  component="img"
+                  height="250"
+                  image= {item.image}
+                  alt="image"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h6" component="div">
+                    {item.name}
+                  </Typography>
+                <Grid container>
+                  <Grid item ml={11} >
+                    <Button size="small" onClick={() => navigate(`/dashboard/garage?gid=${item.id}`)}>Edit</Button>
+                    <Button size="small">Delete</Button>
+                  </Grid>
+                </Grid>
+                </CardContent>
+              </CardActionArea>
+            </Card>
           </Grid>
-        </Grid>
-
-         
-        </CardContent>
-      </CardActionArea>
-    </Card>
-
-    </Grid>
-
-    <Grid item xs={3}>
-
-    <Card sx={{ maxWidth: 250 }}>
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            height="250"
-            image="http://www.outdoorgaragesandsheds.com.au/wp-content/uploads/2017/04/IMG_0209.jpg"
-            alt="default_garage"
-          />
-        <CardContent>
-          <Typography gutterBottom variant="h6" component="div">
-            Manly
-          </Typography>
-
-          <Grid container>
-          <Grid item ml={11} >
-
-
-          <Button size="small" onClick={() => navigate("/dashboard/garage")}>Edit</Button>
-          <Button size="small">Delete</Button>
-
-          </Grid>
-        </Grid>
-         
-        </CardContent>
-      </CardActionArea>
-    </Card>
-
-    </Grid> */}
-
-
-
-
-    </Grid>
+        ))}
+      </Grid>
     </>
   )
 }
