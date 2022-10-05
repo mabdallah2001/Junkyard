@@ -18,40 +18,6 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 // Toast
 import { toast } from 'react-toastify';
 
-// TODO: Remove | Dummy data
-const dummyData = [
-  {
-    id: "123",
-    name: "Item 1",
-    image: "https://source.unsplash.com/random",
-    description: "Description",
-    price: "10.99"
-  },
-  {
-    id: "1234",
-    name: "Item 2",
-    image: "https://source.unsplash.com/random",
-    description: "Description",
-    price: "10.99"
-  },
-  {
-    id: "1235",
-    name: "Item 3",
-    image: "https://source.unsplash.com/random",
-    description: "Description",
-    price: "10.99"
-  }
-]
-
-// TODO: Remove | Simulate api call
-function simulateAPI(data, time) {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(data);
-    }, time);
-  });
-}
-
 function Items() {
 
   const navigate = useNavigate();
@@ -64,14 +30,29 @@ function Items() {
   useEffect(() => {
     let mounted = true;
     setQuerySearched(false);
+    
+    const fetchItems = async () => {
+      return await fetch("http://localhost:8080/api/items/", { 
+        method: "GET",
+        headers: { 'Content-Type': 'application/json' }
+      })
+        .then(response => response.json())
+        .then(resp => setItems(resp))
+        .catch(error =>console.log(error)
+      )
+    }
 
     const fetchData = async () => {
       if (searchParams.get("query")) {
         // TODO: API fetch query
-        simulateAPI(dummyData, 3000)
-          .then((r) => {
-            if (mounted) {
-              setData(r);
+        await fetch("http://localhost:8080/api/items/", { 
+          method: "GET",
+          headers: { 'Content-Type': 'application/json' }
+        })
+          .then(response => response.json())
+          .then(resp => {
+            if(mounted) {
+              setData(resp);
               setQuerySearched(true);
             }
           })
@@ -79,12 +60,17 @@ function Items() {
             toast.error(`Error fetching data: ${e}`);
             setQuerySearched(true)
           })
+        )
       } else {
         // TODO: API fetch default garages
-        simulateAPI(dummyData, 1000)
-          .then((r) => {
-            if (mounted) {
-              setData(r);
+        await fetch("http://localhost:8080/api/items/", { 
+          method: "GET",
+          headers: { 'Content-Type': 'application/json' }
+        })
+          .then(response => response.json())
+          .then(resp => {
+            if(mounted) {
+              setData(resp);
               setQuerySearched(true);
             }
           })
@@ -92,6 +78,7 @@ function Items() {
             toast.error(`Error fetching data: ${e}`);
             setQuerySearched(true)
           })
+        )
       }
     }
 
@@ -113,7 +100,7 @@ function Items() {
             <CardMedia
               component="img"
               height="200"
-              image={item.image}
+              image={item.image_url}
               alt="item image"
             />
             <CardContent sx={{ flexGrow: 1 }}>
