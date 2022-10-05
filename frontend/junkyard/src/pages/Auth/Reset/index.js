@@ -64,7 +64,7 @@ const [emailInValid,setEmailInValid] = useState(false);
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Type your Email Address for resect link
+            Type your Email Address for reset link
           </Typography>
           <Box component="form" noValidate sx={{ mt: 1 }}>
             <TextField
