@@ -1,4 +1,6 @@
-import * as React from 'react';
+import { useState } from "react";
+
+// MUI
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,30 +14,17 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+// Firebase
+import { auth } from '../../../firebase';
 import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { auth } from '../../../firebase';
-import { useState } from "react";
 
-import {toast} from 'react-toastify';
-
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        junkyard
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+// Toast
+import { toast } from 'react-toastify';
 
 const theme = createTheme();
-
 
 export default function SignIn() {
 
@@ -45,8 +34,6 @@ const [passwordInValid, setPasswordInValid] = useState(true);
 const [emailInValid,setEmailInValid] = useState(false);
 
   const login = async () => {
-    console.log("1");
-  
     try {
       await signInWithEmailAndPassword(
         auth,
@@ -59,13 +46,12 @@ const [emailInValid,setEmailInValid] = useState(false);
   };
 
   function validEmail(loginEmail){
-    let res = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(loginEmail);
+    let res = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(loginEmail);
     setEmailInValid(!res);
     if(res){
       setLoginEmail(loginEmail);
     }
-}
-
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -148,7 +134,6 @@ const [emailInValid,setEmailInValid] = useState(false);
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
   );

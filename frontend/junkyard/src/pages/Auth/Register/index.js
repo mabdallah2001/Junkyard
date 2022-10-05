@@ -1,4 +1,6 @@
-import * as React from 'react';
+import { useState } from "react";
+
+// MUI
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,24 +12,15 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+// Firebase
 import {auth} from '../../../firebase';
 import {
   createUserWithEmailAndPassword,updateProfile
 } from "firebase/auth";
-import { useState } from "react";
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        junkyard
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+// Toast
+import { toast } from 'react-toastify';
 
 const theme = createTheme();
 
@@ -39,30 +32,29 @@ export default function Register() {
   const [emailInValid,setEmailInValid] = useState(false);
   const [passwordInValid, setPasswordInValid] = useState(true);
 
-
   const register = async () => {
     try {
-      const user = await createUserWithEmailAndPassword(
+      await createUserWithEmailAndPassword(
         auth,
         registerEmail,
         registerPassword
-      ).than(()=>{
+      ).then(()=>{
         return updateProfile(auth.currentUser,{
           displayName :registerName,
         })
       });
-      // console.log(user);
     } catch (error) {
-      console.log(error.message);
+      toast.error(error.message);
     }
   };
   
   function validEmail(registerEmail){
-    let res = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(registerEmail);
+    let res = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(registerEmail);
     setEmailInValid(!res);
     if(res){
       setRegisterEmail(registerEmail);
-    }}
+    }
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -94,11 +86,10 @@ export default function Register() {
                   label="Name"
                   autoFocus
                   onChange={(event) => {
-                    validEmail(event.target.value);
+                    setRegisterName(event.target.value);
                   }}
                 />
               </Grid>
-            
               <Grid item xs={12}>
                 <TextField
                   required
@@ -153,7 +144,6 @@ export default function Register() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );
