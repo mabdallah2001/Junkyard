@@ -53,7 +53,7 @@ function AppControllerProvider({ children }) {
 // Auth context provider
 function AuthControllerProvider({ children }) {
   const initialState = {
-    user: "null",
+    user: null,
   };
 
   const [authController, authDispatch] = useReducer(authReducer, initialState);

@@ -34,9 +34,7 @@ function Garages() {
   const navigate = useNavigate();
 
   const [data, setData] = useState(dummyData);
-
   const [open, setOpen] = useState(false);
-
   const [deleteID, setDeleteID] = useState()
 
   const handleClickOpen = (garID) => {

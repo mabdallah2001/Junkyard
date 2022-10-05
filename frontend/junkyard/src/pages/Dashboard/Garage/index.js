@@ -23,12 +23,7 @@ function Garage() {
   const [post, setPost] = useState();
   const [country, setCountry] = useState();
   const [description, setDescription] = useState();
-
-
   
-
-
-
   return (
     <>
      <Typography variant="h5" gutterBottom>
