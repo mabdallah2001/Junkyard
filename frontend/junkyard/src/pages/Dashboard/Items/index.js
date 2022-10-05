@@ -29,6 +29,7 @@ const Items = () => {
           <Button variant="contained" pb={2}>Create Item</Button>
         </Link>
       </Container>
+      <br></br>
       <Container maxWidth="lg">
         <Grid container spacing={3}>
           {items.map(item => (

@@ -38,10 +38,6 @@ const Form = ({ action, id, item }) => {
       .catch(error =>console.log(error)
     )
   }
-
-  useEffect(() => {
-    console.log(values)
-  }, [values])
   
   useEffect(() => {
     if(item === null) return
@@ -60,10 +56,10 @@ const Form = ({ action, id, item }) => {
       <h2>{ action === 'create' ? 'New' : 'Edit'} item</h2>
       <div>
         <form onSubmit={handleSubmit}>
-          <FormControl>
-            <FormControl variant="standard">
+          <FormControl fullWidth={true} margin="none">
+            <FormControl variant="standard" fullWidth={true}>
               <InputLabel htmlFor="component-name">Name</InputLabel>
-              <Input id="component-name" value={values.name} onChange={handleChange('name')} />
+              <Input id="component-name" value={values.name} onChange={handleChange('name')} fullWidth={true} />
             </FormControl>
             <br />
             <FormControl variant="standard">
@@ -76,7 +72,7 @@ const Form = ({ action, id, item }) => {
               <Input id="component-img" value={values.image_url} onChange={handleChange('image_url')} />
             </FormControl>
             <br />
-            <FormControl variant="standard">
+            <FormControl variant="standard" multiline={true}>
               <InputLabel htmlFor="component-description">Description</InputLabel>
               <Input id="component-description" value={values.description} onChange={handleChange('description')} />
             </FormControl>
@@ -86,8 +82,8 @@ const Form = ({ action, id, item }) => {
               <Input id="component-price" value={values.price ? values.price.toString() : ""} onChange={handleChange('price')} />
             </FormControl>
             <br />
-            <Button type="submit">Submit</Button>
           </FormControl>
+          <Button variant="contained" type="submit">Submit</Button>
         </form>
       </div>
         

@@ -26,17 +26,22 @@ const Item = () => {
     <>
       <Container maxWidth="lg">
         <Grid container spacing={3}>
-          <Typography>
+          <Typography variant="h4" mt={4}>
             {item.name}
-            <br />
+          </Typography>
+
+          <br></br>
+          <Typography variant="p" mt={5}>
             {item.description}
           </Typography>
         </Grid>
-
-        <Link href={`/dashboard/edit-item/${id}`} underline="none">
-          <Button variant="contained" pb={2}>Edit Item</Button>
-        </Link>
       </Container>
+
+      <br></br>
+
+      <Link href={`/dashboard/edit-item/${id}`} underline="none">
+        <Button variant="contained" pb={2}>Edit Item</Button>
+      </Link>
     </>
   )
 }
