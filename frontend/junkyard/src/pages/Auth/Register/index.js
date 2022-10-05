@@ -36,6 +36,9 @@ export default function Register() {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [registerName, setRegisterName] = useState("");
+  const [emailInValid,setEmailInValid] = useState(false);
+  const [passwordInValid, setPasswordInValid] = useState(true);
+
 
   const register = async () => {
     try {
@@ -48,12 +51,18 @@ export default function Register() {
           displayName :registerName,
         })
       });
-      console.log(user);
+      // console.log(user);
     } catch (error) {
       console.log(error.message);
     }
   };
   
+  function validEmail(registerEmail){
+    let res = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(registerEmail);
+    setEmailInValid(!res);
+    if(res){
+      setRegisterEmail(registerEmail);
+    }}
 
   return (
     <ThemeProvider theme={theme}>
@@ -85,7 +94,7 @@ export default function Register() {
                   label="Name"
                   autoFocus
                   onChange={(event) => {
-                    setRegisterName(event.target.value);
+                    validEmail(event.target.value);
                   }}
                 />
               </Grid>
@@ -98,8 +107,10 @@ export default function Register() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  error={emailInValid}
+                  helperText={emailInValid ? 'Incorrect Email, please input normal email.' : ''}
                   onChange={(event) => {
-                    setRegisterEmail(event.target.value);
+                    validEmail(event.target.value);
                   }}
                 />
               </Grid>
@@ -112,7 +123,14 @@ export default function Register() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  error={passwordInValid}
+                  helperText={passwordInValid ? 'Password must be 6 or more characters.' : ''}
                   onChange={(event) => {
+                    if(event.target.value.length >= 6){
+                      setPasswordInValid(false);
+                  }else{
+                      setPasswordInValid(true);
+                  }
                     setRegisterPassword(event.target.value);
                   }}
                 />

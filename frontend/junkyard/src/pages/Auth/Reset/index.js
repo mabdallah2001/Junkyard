@@ -36,8 +36,9 @@ const theme = createTheme();
 export default function Reset() {
 
 const [EmailAddress, setEmailAddress] = useState("");
+const [emailInValid,setEmailInValid] = useState(false);
 
-  const login = async () => {
+  const reset = async () => {
     
   
     try {
@@ -51,6 +52,13 @@ const [EmailAddress, setEmailAddress] = useState("");
     }
   };
 
+  function validEmail(EmailAddress){
+    let res = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(setEmailAddress);
+    setEmailInValid(!res);
+    if(res){
+      setEmailAddress(EmailAddress);
+    }
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -81,8 +89,10 @@ const [EmailAddress, setEmailAddress] = useState("");
               name="email"
               autoComplete="email"
               autoFocus
+              error={emailInValid}
+              helperText={emailInValid ? 'Incorrect Email, please input normal email.' : ''}
               onChange={(event) => {
-                setEmailAddress(event.target.value);
+                validEmail(event.target.value);
               }}
             />
             
@@ -91,7 +101,7 @@ const [EmailAddress, setEmailAddress] = useState("");
               
               fullWidth
               variant="contained"
-              onClick={login}
+              onClick={reset}
               sx={{ mt: 3, mb: 2 }}
             >
               Reset Password

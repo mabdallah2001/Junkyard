@@ -10,10 +10,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import { auth } from '../../../firebase';
+import { getAuth, updatePassword } from "firebase/auth";
 import { useState } from "react";
 
 
@@ -34,22 +31,18 @@ const theme = createTheme();
 
 
 export default function NewPassword() {
+  const auth = getAuth();
 
+  const user = auth.currentUser;
 const [oldPassword, setoldPassword] = useState("");
 const [NewPassword, setNewPassword] = useState("");
+const [passwordInValid, setPasswordInValid] = useState(true);
 
-  const login = async () => {
-    console.log("1");
-  
-    try {
-      const user = await signInWithEmailAndPassword(
-        auth,
-      );
-      console.log(user);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+updatePassword(user, NewPassword).then(() => {
+}).catch((error) => {
+  // An error ocurred
+  // ...
+});
 
 
   return (
@@ -94,7 +87,14 @@ const [NewPassword, setNewPassword] = useState("");
               type="password"
               id="password"
               autoComplete="current-password"
+              error={passwordInValid}
+              helperText={passwordInValid ? 'Password must be 6 or more characters.' : ''}
               onChange={(event) => {
+                if(event.target.value.length >= 6){
+                  setPasswordInValid(false);
+              }else{
+                  setPasswordInValid(true);
+              }
                 setNewPassword(event.target.value);
               }}
             />
@@ -103,7 +103,7 @@ const [NewPassword, setNewPassword] = useState("");
               
               fullWidth
               variant="contained"
-              onClick={login}
+              onClick={updatePassword}
               sx={{ mt: 3, mb: 2 }}
             >
               Set NewPassword

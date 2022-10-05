@@ -39,6 +39,8 @@ export default function SignIn() {
 
 const [loginEmail, setLoginEmail] = useState("");
 const [loginPassword, setLoginPassword] = useState("");
+const [passwordInValid, setPasswordInValid] = useState(true);
+const [emailInValid,setEmailInValid] = useState(false);
 
   const login = async () => {
     console.log("1");
@@ -54,6 +56,14 @@ const [loginPassword, setLoginPassword] = useState("");
       console.log(error.message);
     }
   };
+
+  function validEmail(loginEmail){
+    let res = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(loginEmail);
+    setEmailInValid(!res);
+    if(res){
+      setLoginEmail(loginEmail);
+    }
+}
 
 
   return (
@@ -84,8 +94,10 @@ const [loginPassword, setLoginPassword] = useState("");
               name="email"
               autoComplete="email"
               autoFocus
+              error={emailInValid}
+              helperText={emailInValid ? 'Incorrect Email, please input normal email.' : ''}
               onChange={(event) => {
-                setLoginEmail(event.target.value);
+                validEmail(event.target.value);
               }}
             />
             <TextField
@@ -97,7 +109,14 @@ const [loginPassword, setLoginPassword] = useState("");
               type="password"
               id="password"
               autoComplete="current-password"
+              error={passwordInValid}
+              helperText={passwordInValid ? 'Password must be 6 or more characters.' : ''}
               onChange={(event) => {
+                if(event.target.value.length >= 6){
+                  setPasswordInValid(false);
+              }else{
+                  setPasswordInValid(true);
+              }
                 setLoginPassword(event.target.value);
               }}
             />
