@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'; 
 import { Button, FormControl, Input, InputLabel } from '@mui/material/';
+import { useNavigate } from "react-router-dom";
 
 const Form = ({ action, id, item }) => {
+  const navigate = useNavigate();
   const [values, setValues] = useState({
     name: '',
     quantity: '',
@@ -34,7 +36,7 @@ const Form = ({ action, id, item }) => {
       body: JSON.stringify(values)
     })
       .then((response) => response.json())
-      .then((res) => window.location.href = "/dashboard/items")
+      .then(() => navigate("/dashboard/items"))
       .catch(error =>console.log(error)
     )
   }
@@ -72,7 +74,7 @@ const Form = ({ action, id, item }) => {
               <Input id="component-img" value={values.image_url} onChange={handleChange('image_url')} />
             </FormControl>
             <br />
-            <FormControl variant="standard" multiline={true}>
+            <FormControl variant="standard">
               <InputLabel htmlFor="component-description">Description</InputLabel>
               <Input id="component-description" value={values.description} onChange={handleChange('description')} />
             </FormControl>
