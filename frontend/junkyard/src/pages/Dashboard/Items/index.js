@@ -1,9 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Container, Grid, Button, Link } from '@mui/material/';
 
+import { useNavigate } from 'react-router-dom';
+
 import ItemCard from "../../../components/ItemContainer/index";
 
 const Items = () => {
+
+  const navigate = useNavigate();
+
   const [items, setItems] = useState([]);
 
   // TO DO: CHANGE API TO CALL ITEM LIST FOR THIS USER ONLY
@@ -25,18 +30,16 @@ const Items = () => {
   return (
     <>
       <Container maxWidth="lg" pb={2}>
-        <Link href="/dashboard/new-item" underline="none">
-          <Button variant="contained" pb={2}>Create Item</Button>
-        </Link>
+        <Button variant="contained" pb={2} onClick={() => navigate(`/dashboard/new-item`)}>
+          Create Item
+        </Button>
       </Container>
       <br></br>
       <Container maxWidth="lg">
         <Grid container spacing={3}>
           {items.map(item => (
             <Grid item sm={4} md={4} key={item.id}>
-              <Link href={`item/${item.id}`} underline="none">
-                <ItemCard key={item.id} item={item} />
-              </Link>
+              <ItemCard key={item.id} item={item} />
             </Grid>
           ))}
         </Grid>

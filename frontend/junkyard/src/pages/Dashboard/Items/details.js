@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Container, Grid, Typography, Button, Link } from '@mui/material/';
 
 
 const Item = () => {
   const { id } = useParams()
+  const navigate = useNavigate();
   const [item, setItem] = useState({});
 
   const fetchItems = async () => {
@@ -13,7 +14,7 @@ const Item = () => {
       headers: { 'Content-Type': 'application/json' }
     })
       .then(response => response.json())
-      .then(resp => setItem(resp)) // TO BE REMOVED
+      .then(resp => setItem(resp))
       .catch(error => console.log(error)
       )
   }
@@ -39,9 +40,9 @@ const Item = () => {
 
       <br></br>
 
-      <Link href={`/dashboard/edit-item/${id}`} underline="none">
-        <Button variant="contained" pb={2}>Edit Item</Button>
-      </Link>
+      <Button variant="contained" pb={2} onClick={() => navigate(`/dashboard/edit-item/${id}`)}>
+        Edit Item
+      </Button>
     </>
   )
 }
