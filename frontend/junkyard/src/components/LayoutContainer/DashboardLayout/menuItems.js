@@ -12,6 +12,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import WarehouseIcon from '@mui/icons-material/Warehouse';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+import CommentIcon from '@mui/icons-material/Comment';
 
 // React Router
 import { Link as RouterLink } from 'react-router-dom';
@@ -45,5 +46,6 @@ export const mainListItems = (
     <Divider sx={{ my: 1 }} />
     <ListItemLink to="/dashboard/garages" primary="Garages" icon={<WarehouseIcon />} />
     <ListItemLink to="/dashboard/items" primary="Items" icon={<ShoppingBasketIcon />} />
+    <ListItemLink to="/dashboard/comments" primary="Comments" icon={<CommentIcon/>} />
   </Fragment>
 );
