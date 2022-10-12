@@ -19,6 +19,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import LogoutIcon from '@mui/icons-material/Logout';
+import HomeIcon from '@mui/icons-material/Home';
 
 // Menu items
 import { mainListItems } from './menuItems';
@@ -29,6 +30,7 @@ import {setDarkMode, useAppController, useAuthController, logout} from "../../..
 // Firebase
 import { auth } from '../../../firebase';
 import { signOut } from 'firebase/auth'
+import {useNavigate} from "react-router-dom";
 
 // Constants
 const drawerWidth = 240;
@@ -80,6 +82,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 function DashboardLayout({children}) {
+
+  const navigate = useNavigate();
 
   // Drawer state
   const [open, setOpen] = useState(false);
@@ -145,6 +149,9 @@ function DashboardLayout({children}) {
             >
               Junkyard
             </Typography>
+            <IconButton sx={{ ml: 1 }} onClick={() => navigate("/home")} color="inherit">
+              <HomeIcon />
+            </IconButton>
             <IconButton sx={{ ml: 1 }} onClick={toggleMode} color="inherit">
               {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
             </IconButton>

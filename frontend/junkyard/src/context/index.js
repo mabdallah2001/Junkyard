@@ -31,6 +31,9 @@ function authReducer(state, action) {
     case "LOGOUT": {
       return { ...state, user: action.value };
     }
+    case "TIER": {
+      return { ...state, currentTier: action.value };
+    }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
@@ -54,6 +57,7 @@ function AppControllerProvider({ children }) {
 function AuthControllerProvider({ children }) {
   const initialState = {
     user: null,
+    currentTier: "Free"
   };
 
   const [authController, authDispatch] = useReducer(authReducer, initialState);
@@ -91,6 +95,7 @@ function useAuthController() {
 const setDarkMode = (dispatch, value) => dispatch({ type: "DARKMODE", value });
 const login = (authDispatch, value) => authDispatch({ type: "LOGIN", value });
 const logout = (authDispatch) => authDispatch({ type: "LOGOUT", value: null });
+const setTier = (authDispatch, value) => authDispatch({ type: "TIER", value });
 
 export {
   AppControllerProvider,
@@ -100,4 +105,5 @@ export {
   useAuthController,
   login,
   logout,
+  setTier
 };
