@@ -32,7 +32,7 @@ import ItemDetails from "./pages/Dashboard/Items/details";
 import Tier from "./pages/Dashboard/Tier";
 
 // Context
-import {AppControllerProvider, AuthControllerProvider, useAuthController, login} from "./context";
+import {AppControllerProvider, AuthControllerProvider, useAuthController, login, setTier} from "./context";
 
 // Firebase
 import { auth } from './firebase';
@@ -45,6 +45,20 @@ function RoutesList() {
   onAuthStateChanged(auth, (userObserver) => {
     if (userObserver && !user) {
       login(authDispatch, userObserver);
+
+      fetch(`http://localhost:8080/api/users?uid=${user.uid}`, {
+      method: "GET",
+      headers: { 'Content-Type': 'application/json' }})
+        .then(response => response.json())
+        .then(resp => setTier(authDispatch, resp.type))
+        .catch(error => console.log(error)
+      )
+
+      // Fetch Data
+      // TODO: Get user data from database
+
+      // Set data
+      // setTier(authDispatch, response.type);
     }
   });
 

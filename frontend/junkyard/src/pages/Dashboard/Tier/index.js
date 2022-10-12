@@ -55,34 +55,70 @@ const tiers = [
   },
 ];
 
-// TODO: Remove | Simulate api call
-function simulateAPI(data, time) {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(data);
-    }, time);
-  });
-}
-
 function Tier() {
 
   const [authController, authDispatch] = useAuthController();
-  const { currentTier } = authController;
+  const { user, currentTier } = authController;
 
   const [processing, setProcessing] = useState(false);
+
+  function getTierName(value) {
+    switch (value) {
+      case 0:
+        return "Free"
+      case 1:
+        return "Pro"
+      case 2:
+        return "Enterprise"
+      default:
+        return "Free"
+    }
+  }
+
+  async function updateTier(email, uid, type) {
+    return await fetch("http://localhost:8080/api/users/update", {
+      method: "PUT",
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email,
+        uid,
+        type
+      })
+    })
+      .then((response) => response.json())
+      .then(() => {
+        setTier(authDispatch, getTierName(type));
+        toast.success("Successfully changed tier");
+        setProcessing(false);
+      })
+      .catch(error => {
+        toast.error("Unable to process request");
+        setProcessing(false);
+      })
+  }
 
   function handleUpgrade(value) {
     // TODO: API to set tier
     setProcessing(true);
-    simulateAPI(value, 2000).then((r) => {
-      setTier(authDispatch, value);
-      toast.success("Successfully changed tier");
-      setProcessing(false);
-    }).catch(() => {
-      toast.error("Unable to process request");
-      setProcessing(false);
-    })
+    let type;
+    switch (value) {
+      case "Free":
+        type = 0;
+        break;
+      case "Pro":
+        type = 1;
+        break;
+      case "Enterprise":
+        type = 2;
+        break;
+      default:
+        type = 0;
+    }
+
+    updateTier(user.email, user.uid, type);
   }
+
+
 
   return (
     <Fragment>
