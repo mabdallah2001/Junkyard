@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react'; 
 import { Button, FormControl, Input, InputLabel } from '@mui/material/';
 import { useNavigate } from "react-router-dom";
+import { getAuth } from "firebase/auth";
 
 const Form = ({ action, id, item }) => {
   const navigate = useNavigate();
+  const auth = getAuth();
+  const user = auth.currentUser;
   const [values, setValues] = useState({
     name: '',
     quantity: '',
@@ -11,7 +14,7 @@ const Form = ({ action, id, item }) => {
     description: '',
     price: '',
     garage_id: 1, // TO BE CHANGED
-    uid: 'useruidhere123', // TO BE CHANGED 
+    uid: user.id,
   })
 
   const handleChange = (prop) => (event) => {
@@ -51,7 +54,7 @@ const Form = ({ action, id, item }) => {
       'quantity': item.quantity.toString()
     })
   }, [item])
-  
+
 
   return(
     <>
