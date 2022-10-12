@@ -31,7 +31,6 @@ public class ItemRepositoryImpl implements ItemRepository {
 
     private static final String SQL_COUNT_BY_ID = "SELECT COUNT(*) FROM items WHERE id = ?";
 
-
     @Autowired
     JdbcTemplate jdbcTemplate;
 

@@ -100,7 +100,7 @@ function Items() {
               </Typography>
             </CardContent>
             <CardActions>
-              <Button size="small" onClick={() => navigate(`/item?id=${item.id}`)} fullWidth>View</Button>
+              <Button size="small" onClick={() => navigate(`/item/${item.id}`)} fullWidth>View</Button>
             </CardActions>
           </Card>
         </Grid>
