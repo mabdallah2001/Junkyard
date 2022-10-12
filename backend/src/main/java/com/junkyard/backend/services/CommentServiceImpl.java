@@ -43,7 +43,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment getCommentByGarage(int garageID) throws NotFoundException {
+    public List<Map<String, Object>> getCommentByGarage(int garageID) throws NotFoundException {
         return commentRepository.getCommentByGarage(garageID);
     }
 

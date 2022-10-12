@@ -18,7 +18,7 @@ public interface CommentRepository {
 
     void deleteComment(int id) throws NotFoundException;
 
-    Comment getCommentByGarage(int garageID) throws NotFoundException;
+    List<Map<String, Object>> getCommentByGarage(int garageID) throws NotFoundException;
 
     List<Map<String, Object>> getComments() throws NotFoundException;
 

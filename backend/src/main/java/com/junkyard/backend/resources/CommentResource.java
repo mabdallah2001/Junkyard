@@ -39,10 +39,10 @@ public class CommentResource {
 
 
     @GetMapping("/garage/{id}")
-    public ResponseEntity<Comment> getCommentByGarage(@PathVariable int id) throws NotFoundException {
-        Comment comment = commentService.getCommentByGarage(id);
-        if (comment != null) {
-            return ResponseEntity.ok(comment);
+    public ResponseEntity<List<Map<String, Object>>> getCommentByGarage(@PathVariable int id) throws NotFoundException {
+        List<Map<String, Object>> comments = commentService.getCommentByGarage(id);
+        if (comments != null) {
+            return ResponseEntity.ok(comments);
         } else {
             throw new NotFoundException("No record found.");
         }

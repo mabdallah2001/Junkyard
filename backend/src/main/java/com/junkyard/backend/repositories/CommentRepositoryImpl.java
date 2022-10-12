@@ -51,8 +51,9 @@ public class CommentRepositoryImpl implements CommentRepository{
 
 
     @Override
-    public Comment getCommentByGarage(int garageID) throws NotFoundException {
-        return jdbcTemplate.queryForObject(SQL_FIND_BY_GARAGE, new Object[]{garageID}, commentRowMapper);
+    public List<Map<String, Object>> getCommentByGarage(int garageID) throws NotFoundException {
+        return jdbcTemplate.queryForList(SQL_FIND_BY_GARAGE,new Object[]{garageID});
+//        return jdbcTemplate.queryForObject(SQL_FIND_BY_GARAGE, new Object[]{garageID}, commentRowMapper);
 
     }
 

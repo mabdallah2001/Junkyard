@@ -17,7 +17,7 @@ public interface CommentService {
 
     void deleteComment(int id) throws InternalServerErrorException, AuthException;
 
-    Comment getCommentByGarage(int garageID) throws NotFoundException;
+    List<Map<String, Object>> getCommentByGarage(int garageID) throws NotFoundException;
 
     List<Map<String, Object>> getComments() throws NotFoundException;
 
