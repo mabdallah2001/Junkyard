@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react'; 
 import { Button, FormControl, Input, InputLabel } from '@mui/material/';
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 
 const Form = ({ action, id, comment }) => {
   const navigate = useNavigate();
+  const [searchParams, ] = useSearchParams();
+  id = searchParams.get("id");
+  
   const [values, setValues] = useState({
     content:'',
-    garage_id: 1, // TO BE CHANGED
+    garage_id: id, // TO BE CHANGED
     uid: 'useruidhere123', // TO BE CHANGED 
   })
 
@@ -22,7 +26,7 @@ const Form = ({ action, id, comment }) => {
     let method = 'POST'
 
     if (action === 'update') {
-      url += `${id}`
+      url += `${values.comment_id}`
       method = 'PUT'
     }
 
@@ -43,7 +47,7 @@ const Form = ({ action, id, comment }) => {
     
     setValues({
       ...comment,
-      'content': comment.content.toString(),
+      'content': comment.content,
     })
   }, [comment])
   

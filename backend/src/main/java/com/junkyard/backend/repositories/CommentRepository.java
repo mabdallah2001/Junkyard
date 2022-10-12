@@ -22,4 +22,6 @@ public interface CommentRepository {
 
     List<Map<String, Object>> getComments() throws NotFoundException;
 
+    List<Map<String, Object>> getCommentByUser(String userID) throws NotFoundException;
+
 }

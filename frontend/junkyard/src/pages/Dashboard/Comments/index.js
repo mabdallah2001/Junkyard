@@ -13,7 +13,7 @@ const Comments = () => {
 
   // TO DO: CHANGE API TO CALL COMMENT LIST FOR THIS USER ONLY
   const fetchComments = async () => {
-    return await fetch("http://localhost:8080/api/comments/", {
+    return await fetch("http://localhost:8080/api/comments/user/useruidhere123", {
       method: "GET",
       headers: { 'Content-Type': 'application/json' }
     })
@@ -30,9 +30,6 @@ const Comments = () => {
   return (
     <>
       <Container maxWidth="lg" pb={2}>
-        <Button variant="contained" pb={2} onClick={() => navigate(`/dashboard/new-comment`)}>
-          Create Comment
-        </Button>
       </Container>
       <br></br>
       <Container maxWidth="lg">

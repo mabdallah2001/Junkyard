@@ -47,6 +47,11 @@ public class CommentServiceImpl implements CommentService {
         return commentRepository.getCommentByGarage(garageID);
     }
 
+    @Override
+    public List<Map<String, Object>> getCommentByUser(String userID) throws NotFoundException {
+        return commentRepository.getCommentByUser(userID);
+    }
+
 
     @Override
     public List<Map<String, Object>> getComments() throws NotFoundException {

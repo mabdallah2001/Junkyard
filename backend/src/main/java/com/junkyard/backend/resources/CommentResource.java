@@ -48,6 +48,18 @@ public class CommentResource {
         }
     }
 
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<Map<String, Object>>> getCommentByUser(@PathVariable String id) throws NotFoundException {
+        List<Map<String, Object>> comments = commentService.getCommentByUser(id);
+        if (comments != null) {
+            return ResponseEntity.ok(comments);
+        } else {
+            throw new NotFoundException("No record found.");
+        }
+    }
+
+
     @GetMapping("/{id}")
     public ResponseEntity<Comment> getComment(@PathVariable int id) throws NotFoundException {
         Comment comment = commentService.getComment(id);

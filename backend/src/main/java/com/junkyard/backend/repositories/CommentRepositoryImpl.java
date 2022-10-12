@@ -28,7 +28,7 @@ public class CommentRepositoryImpl implements CommentRepository{
     private static final String SQL_FIND_BY_GARAGE = "SELECT * FROM COMMENTS WHERE GARAGEID = ?";
     private static final String SQL_UPDATE_BY_ID = "UPDATE comments SET CONTENT = ?,  GARAGEID = ?, UID = ? WHERE id = ?";
     private static final String SQL_DELETE_BY_ID = "DELETE FROM comments WHERE id = ?";
-
+    private static final String SQL_FIND_BY_USER = "SELECT * FROM COMMENTS WHERE UID = ?";
     private static final String SQL_FIND_ALL = "SELECT * FROM comments ORDER BY id DESC";
 
     @Override
@@ -53,16 +53,17 @@ public class CommentRepositoryImpl implements CommentRepository{
     @Override
     public List<Map<String, Object>> getCommentByGarage(int garageID) throws NotFoundException {
         return jdbcTemplate.queryForList(SQL_FIND_BY_GARAGE,new Object[]{garageID});
-//        return jdbcTemplate.queryForObject(SQL_FIND_BY_GARAGE, new Object[]{garageID}, commentRowMapper);
-
     }
 
+    @Override
+    public List<Map<String, Object>> getCommentByUser(String userID) throws NotFoundException {
+        return jdbcTemplate.queryForList(SQL_FIND_BY_USER,new Object[]{userID});
+    }
 
     @Override
     public List<Map<String, Object>> getComments() throws NotFoundException {
         return jdbcTemplate.queryForList(SQL_FIND_ALL);
     }
-
 
     @Override
     public Integer updateComment(int id, String content, String uid, Integer garageID) throws AuthException {
