@@ -42,9 +42,9 @@ function RoutesList() {
   const [authController, authDispatch] = useAuthController();
   const { user } = authController;
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      login(authDispatch, user);
+  onAuthStateChanged(auth, (userObserver) => {
+    if (userObserver && !user) {
+      login(authDispatch, userObserver);
     }
   });
 
