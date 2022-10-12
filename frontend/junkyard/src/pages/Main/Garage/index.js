@@ -3,14 +3,16 @@ import { Container, Grid, Button, Link } from '@mui/material/';
 
 import { useSearchParams, useNavigate } from "react-router-dom";
 
-import CommentCard from '../../../components/CommentContainer/CommentContainer';
+import CommentCard from '../../../components/CommentContainer/CommentView';
+import New from '../../Dashboard/New-Comment/new';
+
+
 
 const Comments = () => {
 
   const navigate = useNavigate();
   const [searchParams, ] = useSearchParams();
   const id = searchParams.get("id");
-  console.log(id);
   const [comments, setComments] = useState([]);
 
   // TO DO: CHANGE API TO CALL COMMENT LIST FOR THIS USER ONLY
@@ -31,11 +33,7 @@ const Comments = () => {
 
   return (
     <>
-      <Container maxWidth="lg" pb={2}>
-        <Button variant="contained" pb={2} onClick={() => navigate(`/dashboard/new-comment`)}>
-          Create Comment
-        </Button>
-      </Container>
+      <New/>
       <br></br>
       <Container maxWidth="lg">
         <Grid container spacing={3}>

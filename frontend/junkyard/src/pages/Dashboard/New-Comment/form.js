@@ -6,7 +6,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 const Form = ({ action, id, comment }) => {
   const navigate = useNavigate();
   const [searchParams, ] = useSearchParams();
-  id = searchParams.get("id");
+  id = parseInt(searchParams.get("id"));
   
   const [values, setValues] = useState({
     content:'',
@@ -22,7 +22,7 @@ const Form = ({ action, id, comment }) => {
     e.preventDefault()
     console.log(values)
 
-    let url = "http://localhost:8080/api/comments/"
+    let url = `http://localhost:8080/api/comments/`
     let method = 'POST'
 
     if (action === 'update') {
@@ -36,7 +36,7 @@ const Form = ({ action, id, comment }) => {
       body: JSON.stringify(values)
     })
       .then((response) => response.json())
-      .then(() => navigate("/dashboard/comments"))
+      .then(() => navigate(`/garage?id=${id}`))
       .catch(error =>console.log(error)
     )
   }

@@ -40,7 +40,7 @@ function Comments() {
       .then(response => response.json())
       .then(response => {
         if (mounted) {
-          console.log(response)
+          // console.log(response)
           setData(response)
         }
       })
