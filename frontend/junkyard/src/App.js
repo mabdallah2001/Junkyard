@@ -54,7 +54,7 @@ function RoutesList() {
       <Route path="garages" element={<PageLayout><Garages /></PageLayout>} />
       <Route path="garage" element={<PageLayout><Garage /></PageLayout>} />
       <Route path="items" element={<PageLayout><Items /></PageLayout>} />
-      <Route path="item" element={<PageLayout><Item /></PageLayout>} />
+      <Route path="item/:id" element={<PageLayout><ItemDetails /></PageLayout>} />
       {!user &&
         <Route path="auth/*">
           <Route path="login" element={<AuthLayout><Login/></AuthLayout>}/>
