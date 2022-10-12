@@ -21,9 +21,8 @@ public class UserResource {
     @Autowired
     UserService userService;
 
-    @GetMapping("/")
-    public ResponseEntity<User> getUser(@RequestBody Map<String, Object> userMap) throws NotFoundException {
-        String uid = (String) userMap.get("uid");
+    @GetMapping
+    public ResponseEntity<User> getUser(@RequestParam String uid) throws NotFoundException {
         User user = userService.getUser(uid);
 
         if (user != null) {
