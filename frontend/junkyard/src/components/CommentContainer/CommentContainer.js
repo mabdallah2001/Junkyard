@@ -21,10 +21,10 @@ function CommentCard({data}) {
   const { id, content } = data;
   
   return (
-    <Card sx={{ minWidth: 275 }} onClick={() => navigate(`/dashboard/comment/${id}`)}>
+    <Card sx={{ minWidth: 275 }} onClick={() => navigate(`/dashboard/edit-comment/${id}`)}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          Comemnt ID: {id}
+          Comemnt ID:{id}
         </Typography>
         <Typography variant="h5" component="div">
           {content}

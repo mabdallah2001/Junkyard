@@ -36,7 +36,7 @@ const Form = ({ action, id, comment }) => {
       body: JSON.stringify(values)
     })
       .then((response) => response.json())
-      .then(() => navigate(`/garage?id=${id}`))
+      .then(() => navigate(`/dashboard/comments`))
       .catch(error =>console.log(error)
     )
   }
