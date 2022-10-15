@@ -4,12 +4,16 @@ import { Container, Grid, Button, Link } from '@mui/material/';
 import { useNavigate } from 'react-router-dom';
 
 import CommentCard from '../../../components/CommentContainer/CommentContainer';
+import { useAuthController } from "../../../context";
 
 const Comments = () => {
 
   const navigate = useNavigate();
 
   const [comments, setComments] = useState([]);
+  const [authController] = useAuthController();
+  const { user } = authController;
+  console.log(user.uid);
 
   // TO DO: CHANGE API TO CALL COMMENT LIST FOR THIS USER ONLY
   const fetchComments = async () => {
@@ -19,6 +23,7 @@ const Comments = () => {
     })
       .then(response => response.json())
       .then(resp => setComments(resp))
+      .then(this.$router.go(0))
       .catch(error => console.log(error)
       )
   }

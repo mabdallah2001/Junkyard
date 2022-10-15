@@ -24,9 +24,11 @@ const Form = ({ action, id, comment }) => {
 
     let url = `http://localhost:8080/api/comments/`
     let method = 'POST'
+    let navi = `/garage?id=${id}`
 
     if (action === 'update') {
       url += `${values.comment_id}`
+      navi = `/dashboard/comments`
       method = 'PUT'
     }
 
@@ -36,7 +38,7 @@ const Form = ({ action, id, comment }) => {
       body: JSON.stringify(values)
     })
       .then((response) => response.json())
-      .then(() => navigate(`/dashboard/comments`))
+      .then(() => navigate(navi))
       .catch(error =>console.log(error)
     )
   }

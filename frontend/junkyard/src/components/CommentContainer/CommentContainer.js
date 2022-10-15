@@ -16,12 +16,31 @@ const bull = (
   </Box>
 );
 
+
 function CommentCard({data}) {
   const navigate = useNavigate();
   const { id, content } = data;
+
+  const handleDelete = async(e) => {
+    e.preventDefault()
+
+    let url = `http://localhost:8080/api/comments/${id}`
+    let method = 'DELETE'
+    let navi = `/dashboard/comments`
+
+
+    return await fetch(url, {
+      method,
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then((response) => response.json())
+      .then(() => navigate(navi))
+      .catch(error =>console.log(error)
+    )
+  }
   
   return (
-    <Card sx={{ minWidth: 275 }} onClick={() => navigate(`/dashboard/edit-comment/${id}`)}>
+    <Card sx={{ minWidth: 275 }}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           Comemnt ID:{id}
@@ -31,7 +50,8 @@ function CommentCard({data}) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Edit</Button>
+        <Button size="small" onClick={() => navigate(`/dashboard/edit-comment/${id}`)}>Edit</Button>
+        <Button size="small" onClick={handleDelete}>Delete</Button>
       </CardActions>
     </Card>
   );
