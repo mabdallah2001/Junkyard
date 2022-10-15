@@ -40,6 +40,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 
 //post data
 import axios from "axios";
+import { toast } from "react-toastify";
 
 function RoutesList() {
   const [authController, authDispatch] = useAuthController();
@@ -47,31 +48,22 @@ function RoutesList() {
 
   onAuthStateChanged(auth, (userObserver) => {
     if (userObserver && !user) {
-      login(authDispatch, userObserver);
-
-      fetch(`http://localhost:8080/api/users?uid=${user.uid}`, {
+      fetch(`http://localhost:8080/api/users?uid=${userObserver.uid}`, {
       method: "GET",
       headers: { 'Content-Type': 'application/json' }})
         .then(response => response.json())
+        .then(() => login(authDispatch, userObserver))
         .then(resp => setTier(authDispatch, resp.type))
-        .catch(error => {
+        .catch(() => {
           axios.post('http://localhost:8080/api/users/register', {
-            uid : user.uid,
-            email : user.email,
-            })
-            .then(function (response) {
-                console.log(response);
-            })
+            uid : userObserver.uid,
+            email : userObserver.email,
+          })
+            .then(() => login(authDispatch, userObserver))
             .catch(function (error) {
-                console.log(error);
+                toast.error(`Unable to create an account: ${error}`);
             });
         })
-
-      // Fetch Data
-      // TODO: Get user data from database
-
-      // Set data
-      // setTier(authDispatch, response.type);
     }
   });
 
