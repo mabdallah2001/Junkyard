@@ -58,6 +58,7 @@ function RoutesList() {
           axios.post('http://localhost:8080/api/users/register', {
             uid : userObserver.uid,
             email : userObserver.email,
+            type: 0
           })
             .then(() => login(authDispatch, userObserver))
             .catch(function (error) {
