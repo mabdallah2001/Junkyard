@@ -11,6 +11,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import { Divider } from '@mui/material';
 
 // React router
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -76,13 +77,15 @@ function Comments() {
           >
             <CardContent sx={{ flexGrow: 1 }}>
               <Stack direction="row" justifyContent="space-between">
-                <Typography gutterBottom variant="h5" component="h2">
+                <Typography variant="body2" color="text.secondary">
                   {comment.id}
                 </Typography>
               </Stack>
+              <Divider light />
               <Typography>
                 {comment.content}
               </Typography>
+              <Divider component="li" />
             </CardContent>
             <CardActions>
               <Button size="small" onClick={() => navigate(`/comment?id=${comment.id}`)} fullWidth>View</Button>
