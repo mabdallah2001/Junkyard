@@ -1,0 +1,190 @@
+
+
+.top-container{
+    width: 80%;
+    display: flex;
+    padding-top: 20px;
+}
+
+.image-container{
+    width: 30%;
+    height: 80%;
+}
+
+.detail-container{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.detail-title{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+}
+
+.phone-name{
+    text-align: left;
+}
+
+.phone-brand{
+    font-size: 1.5rem;
+}
+
+.phone-detail-form{
+    display: flex;
+    width: 80%;
+}
+
+.phone-stock-seller-added{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.phone-added{
+    border: 1px #102027 solid;
+    display: flex;
+    white-space: nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.phone-added div{
+    padding: 20px;
+}
+
+.phone-price-cart{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: space-between;
+}
+
+.bottom-container{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.review-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 50px;
+}
+
+.reviews{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.review{
+    margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: column;
+    background-color: lightgray;
+    border-radius: 15px;
+}
+
+.review-title{
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.review-content{
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    /*overflow: hidden;*/
+    word-wrap: break-word;
+}
+
+.divider{
+    width: 70%;
+    height: 1px;
+    background-color: lightgray;
+    margin: 25px 15%;
+}
+
+.add-comment-container{
+    width: 100%;
+    display: flex;
+    background-color: lightgray;
+    border-radius: 15px;
+}
+
+.comment-input-container{
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.comment-input{
+    width: 90%;
+    padding: 20px;
+}
+
+.rate-commit-container{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.rate-select{
+    width: 90%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.post-button{
+    width: 100%;
+    padding-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.long-string{
+    width: 100%;
+    word-wrap: break-word;
+    overflow: hidden;
+}
+
+.long-string-comment{
+    text-align: left;
+    word-wrap: break-word;
+}
+
+.long-comment-container{
+    width: 100%;
+    word-wrap: break-word;
+}
