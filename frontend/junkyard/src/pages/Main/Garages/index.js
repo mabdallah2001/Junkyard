@@ -18,14 +18,14 @@ import { toast } from 'react-toastify';
 // TODO: Remove | Dummy data
 const dummyData = [
   {
-    id: "123",
+    id: "1",
     name: "Garage Name 1",
     details: "Garage details",
     hours: "10am - 6pm",
     location: "Address"
   },
   {
-    id: "1234",
+    id: "13",
     name: "Garage Name 2",
     details: "Garage details",
     hours: "10am - 6pm",
