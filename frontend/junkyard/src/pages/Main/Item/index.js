@@ -1,8 +1,9 @@
-function Item() {
+import Item from "../../Dashboard/Items/details";
+
+function ItemDetails() {
+
   return (
-    <>
-      Item Pages
-    </>
+    <Item />
   )
 }
-export default Item;
+export default ItemDetails;

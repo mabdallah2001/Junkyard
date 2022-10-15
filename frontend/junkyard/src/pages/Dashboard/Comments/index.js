@@ -4,7 +4,7 @@ import { Container, Grid, Button, Link } from '@mui/material/';
 import { useNavigate } from 'react-router-dom';
 
 import CommentCard from '../../../components/CommentContainer/CommentContainer';
-import { useAuthController } from "../../../context";
+import { useAuthController, useAppController, setRefresh } from "../../../context";
 
 const Comments = () => {
 
@@ -13,11 +13,13 @@ const Comments = () => {
   const [comments, setComments] = useState([]);
   const [authController] = useAuthController();
   const { user } = authController;
-  console.log(user.uid);
+
+  const [appController, appDispatch] = useAppController();
+  const { refresh } = appController;
 
   // TO DO: CHANGE API TO CALL COMMENT LIST FOR THIS USER ONLY
   const fetchComments = async () => {
-    return await fetch("http://localhost:8080/api/comments/user/useruidhere123", {
+    return await fetch(`http://localhost:8080/api/comments/user/${user.uid}`, {
       method: "GET",
       headers: { 'Content-Type': 'application/json' }
     })
@@ -29,8 +31,11 @@ const Comments = () => {
   }
 
   useEffect(() => {
-    fetchComments()
-  }, [])
+    fetchComments();
+    if (refresh) {
+      setRefresh(appDispatch, false)
+    }
+  }, [refresh])
 
   return (
     <>
@@ -38,6 +43,7 @@ const Comments = () => {
       </Container>
       <br></br>
       <Container maxWidth="lg">
+        {comments.length === 0 && "No comments"}
         <Grid container spacing={3}>
           {comments.map((item, idx) => (
             <Grid item sm={4} md={4} key={idx}>

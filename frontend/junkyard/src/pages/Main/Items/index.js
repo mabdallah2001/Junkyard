@@ -26,7 +26,7 @@ function Items() {
 
   const [data, setData] = useState([]);
   const [querySearched, setQuerySearched] = useState(false);
-  
+
   useEffect(() => {
     let mounted = true;
     setQuerySearched(false);
@@ -34,7 +34,7 @@ function Items() {
     const fetchData = async () => {
       if (searchParams.get("query")) {
         // TODO: API fetch query
-        await fetch("http://localhost:8080/api/items/", {
+        await fetch(`http://localhost:8080/api/items/?query=${query}`, {
           method: "GET",
           headers: { 'Content-Type': 'application/json' }
         })
@@ -71,6 +71,10 @@ function Items() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query])
 
+  useEffect(() => {
+    console.log("data", data)
+  }, [data])
+
   return (
     <Fragment>
       {querySearched ? 
@@ -100,7 +104,7 @@ function Items() {
               </Typography>
             </CardContent>
             <CardActions>
-              <Button size="small" onClick={() => navigate(`/item?id=${item.id}`)} fullWidth>View</Button>
+              <Button size="small" onClick={() => navigate(`/item/${item.id}`)} fullWidth>View</Button>
             </CardActions>
           </Card>
         </Grid>

@@ -29,8 +29,9 @@ public class ItemRepositoryImpl implements ItemRepository {
             "description = ?, price = ?, garage_id = ?, uid = ? WHERE id = ?";
     private static final String SQL_DELETE_BY_ID = "DELETE FROM items WHERE id = ?";
 
-    private static final String SQL_COUNT_BY_ID = "SELECT COUNT(*) FROM items WHERE id = ?";
+    private static final String SQL_QUERY_BY_NAME = "SELECT * FROM items WHERE name ILIKE ?";
 
+    private static final String SQL_COUNT_BY_ID = "SELECT COUNT(*) FROM items WHERE id = ?";
 
     @Autowired
     JdbcTemplate jdbcTemplate;
@@ -69,6 +70,10 @@ public class ItemRepositoryImpl implements ItemRepository {
 
     public List<Map<String, Object>> getItems() throws NotFoundException {
         return jdbcTemplate.queryForList(SQL_FIND_ALL);
+    }
+
+    public List<Map<String, Object>> queryItems(String query) throws NotFoundException {
+        return jdbcTemplate.queryForList(SQL_QUERY_BY_NAME, new Object[] { query });
     }
 
     @Override

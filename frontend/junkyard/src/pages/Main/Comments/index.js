@@ -18,7 +18,13 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 // Toast
 import { toast } from 'react-toastify';
 
+// Context
+import { useAppController, setRefresh } from '../../../context';
+
 function Comments() {
+
+  const [appController, appDispatch] = useAppController();
+  const { refresh } = appController;
 
   const navigate = useNavigate();
   const [searchParams, ] = useSearchParams();
@@ -30,6 +36,9 @@ function Comments() {
   
   useEffect(() => {
     let mounted = true;
+    if (refresh) {
+      setRefresh(appDispatch, false);
+    }
     
     const fetchData = async () => {
     // TODO: API fetch query
@@ -53,7 +62,7 @@ function Comments() {
 
     return(() => mounted = false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query])
+  }, [query, refresh])
 
   return (
     <Fragment>

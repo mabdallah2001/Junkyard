@@ -14,7 +14,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 // Firebase
-import {auth} from '../../../firebase';
+import { auth } from "../../../firebase";
 import {
   createUserWithEmailAndPassword,updateProfile
 } from "firebase/auth";
@@ -38,16 +38,17 @@ export default function Register() {
         auth,
         registerEmail,
         registerPassword
-      ).then(()=>{
-        return updateProfile(auth.currentUser,{
-          displayName :registerName,
-        })
+      ).then(
+        ()=>{
+          return updateProfile(auth.currentUser,{
+            displayName :registerName,
+          })
       });
     } catch (error) {
       toast.error(error.message);
     }
   };
-  
+
   function validEmail(registerEmail){
     let res = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(registerEmail);
     setEmailInValid(!res);

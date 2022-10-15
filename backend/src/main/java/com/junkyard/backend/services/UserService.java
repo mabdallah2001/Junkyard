@@ -5,5 +5,9 @@ import com.junkyard.backend.exceptions.AuthException;
 
 public interface UserService {
 
-    User registerUser(String uid, String email) throws AuthException;
+    User registerUser(String uid, String email, int type) throws AuthException;
+
+    User updateUser(String uid, String email, int type) throws AuthException;
+
+    User getUser(String uid) throws AuthException;
 }

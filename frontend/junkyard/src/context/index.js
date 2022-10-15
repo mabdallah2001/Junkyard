@@ -16,6 +16,9 @@ function reducer(state, action) {
       localStorage.setItem("dark", JSON.stringify(action.value));
       return { ...state, darkMode: action.value };
     }
+    case "REFRESH": {
+      return { ...state, refresh: action.value };
+    }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
@@ -31,6 +34,9 @@ function authReducer(state, action) {
     case "LOGOUT": {
       return { ...state, user: action.value };
     }
+    case "TIER": {
+      return { ...state, currentTier: action.value };
+    }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
@@ -40,7 +46,8 @@ function authReducer(state, action) {
 // App context provider
 function AppControllerProvider({ children }) {
   const initialState = {
-    darkMode: JSON.parse(localStorage.getItem('dark')) || false
+    darkMode: JSON.parse(localStorage.getItem('dark')) || false,
+    refresh: false
   };
 
   const [controller, dispatch] = useReducer(reducer, initialState);
@@ -54,6 +61,7 @@ function AppControllerProvider({ children }) {
 function AuthControllerProvider({ children }) {
   const initialState = {
     user: null,
+    currentTier: "Free"
   };
 
   const [authController, authDispatch] = useReducer(authReducer, initialState);
@@ -89,15 +97,19 @@ function useAuthController() {
 
 // Context module functions
 const setDarkMode = (dispatch, value) => dispatch({ type: "DARKMODE", value });
+const setRefresh = (dispatch, value) => dispatch({ type: "REFRESH", value });
 const login = (authDispatch, value) => authDispatch({ type: "LOGIN", value });
 const logout = (authDispatch) => authDispatch({ type: "LOGOUT", value: null });
+const setTier = (authDispatch, value) => authDispatch({ type: "TIER", value });
 
 export {
   AppControllerProvider,
   useAppController,
   setDarkMode,
+  setRefresh,
   AuthControllerProvider,
   useAuthController,
   login,
   logout,
+  setTier
 };

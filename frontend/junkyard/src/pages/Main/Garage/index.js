@@ -6,9 +6,15 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import CommentCard from '../../../components/CommentContainer/CommentView';
 import New from '../../Dashboard/New-Comment/new';
 
-
+import { useAuthController, useAppController, setRefresh } from '../../../context';
 
 const Comments = () => {
+
+  const [authController,] = useAuthController();
+  const { user } = authController;
+
+  const [appController, appDispatch] = useAppController();
+  const { refresh } = appController;
 
   const navigate = useNavigate();
   const [searchParams, ] = useSearchParams();
@@ -28,12 +34,15 @@ const Comments = () => {
   }
 
   useEffect(() => {
-    fetchComments()
-  }, [])
+    fetchComments();
+    if (refresh) {
+      setRefresh(appDispatch, false);
+    }
+  }, [refresh])
 
   return (
     <>
-      <New/>
+      {user && <New/>}
       <br></br>
       <Container maxWidth="lg">
         <Grid container spacing={3}>

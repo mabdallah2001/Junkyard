@@ -38,6 +38,11 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public List<Map<String, Object>> queryItems(String query) throws NotFoundException {
+        return itemRepository.queryItems(query);
+    }
+
+    @Override
     public Item updateItem(int id, String name, int quantity, String imageUrl, String description, BigDecimal price, int garageId, String uid)
             throws InternalServerErrorException, AuthException {
         Integer itemId = itemRepository.updateItem(id, name, quantity, imageUrl, description, price, garageId, uid);

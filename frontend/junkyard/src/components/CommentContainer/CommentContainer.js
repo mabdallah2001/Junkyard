@@ -6,6 +6,8 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
+
+import { useAppController, setRefresh } from '../../context';
  
 const bull = (
   <Box
@@ -18,6 +20,8 @@ const bull = (
 
 
 function CommentCard({data}) {
+  const [, appDispatch] = useAppController();
+
   const navigate = useNavigate();
   const { id, content } = data;
 
@@ -34,6 +38,7 @@ function CommentCard({data}) {
       headers: { 'Content-Type': 'application/json' }
     })
       .then((response) => response.json())
+      .then(() => setRefresh(appDispatch, true))
       .then(() => navigate(navi))
       .catch(error =>console.log(error)
     )

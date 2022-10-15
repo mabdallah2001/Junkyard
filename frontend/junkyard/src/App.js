@@ -39,19 +39,41 @@ import CommentDetails from "./pages/Dashboard/Comments/details"
 import Tier from "./pages/Dashboard/Tier";
 
 // Context
-import {AppControllerProvider, AuthControllerProvider, useAuthController, login} from "./context";
+import {AppControllerProvider, AuthControllerProvider, useAuthController, login, setTier} from "./context";
 
 // Firebase
 import { auth } from './firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 
+//post data
+import axios from "axios";
+import { toast } from "react-toastify";
+
 function RoutesList() {
   const [authController, authDispatch] = useAuthController();
   const { user } = authController;
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      login(authDispatch, user);
+  onAuthStateChanged(auth, (userObserver) => {
+    if (userObserver && !user) {
+      login(authDispatch, userObserver);
+      fetch(`http://localhost:8080/api/users?uid=${userObserver.uid}`, {
+      method: "GET",
+      headers: { 'Content-Type': 'application/json' }})
+        .then(response => {
+          if (response.ok) return response.json();
+          throw new Error('No matching account');
+        })
+        .then(resp => setTier(authDispatch, resp.type))
+        .catch(() => {
+          axios.post('http://localhost:8080/api/users/register', {
+            uid : userObserver.uid,
+            email : userObserver.email,
+            type: 0
+          })
+            .catch(function (error) {
+                toast.error(`Unable to create an account: ${error}`);
+            });
+        })
     }
   });
 
@@ -61,9 +83,7 @@ function RoutesList() {
       <Route path="garages" element={<PageLayout><Garages /></PageLayout>} />
       <Route path="garage" element={<PageLayout><Garage /></PageLayout>} />
       <Route path="items" element={<PageLayout><Items /></PageLayout>} />
-      <Route path="item" element={<PageLayout><Item /></PageLayout>} />
-      <Route path="comments" element={<PageLayout><Comments /></PageLayout>} />
-      <Route path="comment" element={<PageLayout><Comment /></PageLayout>} />
+      <Route path="item/:id" element={<PageLayout><ItemDetails /></PageLayout>} />
       {!user &&
         <Route path="auth/*">
           <Route path="login" element={<AuthLayout><Login/></AuthLayout>}/>

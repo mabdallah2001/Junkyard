@@ -3,7 +3,16 @@ import { Button, FormControl, Input, InputLabel } from '@mui/material/';
 // import { useNavigate } from "react-router-dom";
 import { useSearchParams, useNavigate } from "react-router-dom";
 
+import { useAuthController, useAppController, setRefresh } from '../../../context';
+
+import { toast } from 'react-toastify';
+
 const Form = ({ action, id, comment }) => {
+
+  const [authController, ] = useAuthController();
+  const { user } = authController;
+  const [, appDispatch] = useAppController();
+
   const navigate = useNavigate();
   const [searchParams, ] = useSearchParams();
   id = parseInt(searchParams.get("id"));
@@ -11,7 +20,7 @@ const Form = ({ action, id, comment }) => {
   const [values, setValues] = useState({
     content:'',
     garage_id: id, // TO BE CHANGED
-    uid: 'useruidhere123', // TO BE CHANGED 
+    uid: user.uid, // TO BE CHANGED 
   })
 
   const handleChange = (prop) => (event) => {
@@ -37,10 +46,19 @@ const Form = ({ action, id, comment }) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values)
     })
-      .then((response) => response.json())
-      .then(() => navigate(navi))
-      .catch(error =>console.log(error)
-    )
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
+        };
+        throw new Error('Unable to create comment');
+      })
+      .then(() => {
+        setRefresh(appDispatch, true);
+      })
+      .then(() => {
+        navigate(navi);
+      })
+      .catch(error => toast.error(`Failed to create comment: ${error}`))
   }
   
   useEffect(() => {
