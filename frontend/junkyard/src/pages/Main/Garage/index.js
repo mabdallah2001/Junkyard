@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Container, Grid, Button, Link } from '@mui/material/';
+import { Container, Grid, Button, Link, Typography } from '@mui/material/';
 
 import { useSearchParams, useNavigate } from "react-router-dom";
 
@@ -43,8 +43,18 @@ const Comments = () => {
 
   return (
     <>
+      <Grid spacing={2} mt={6}>
+        <Typography variant="h4">
+          Items
+        </Typography>
+      </Grid>
+      <Grid container item p={0} m={0} xs={12} direction="column">
+        <Grid container item p={0} m={0} xs={8} direction="column">
+          <Items />
+        </Grid>
+      </Grid>
       <Grid container spacing={2} mt={5}>
-        <Grid container item p={0} m={0} xs={4} direction="column">
+        <Grid container item p={0} m={0} xs={12} direction="column">
           {user && <New />}
           <br></br>
           <Container maxWidth="lg" p={0}>
@@ -57,10 +67,6 @@ const Comments = () => {
             </Grid>
           </Container>
           
-        </Grid>
-
-        <Grid container item p={0} m={0} xs={8} direction="column">
-          <Items />
         </Grid>
       </Grid>
     </>
