@@ -48,11 +48,11 @@ function RoutesList() {
 
   onAuthStateChanged(auth, (userObserver) => {
     if (userObserver && !user) {
+      login(authDispatch, userObserver);
       fetch(`http://localhost:8080/api/users?uid=${userObserver.uid}`, {
       method: "GET",
       headers: { 'Content-Type': 'application/json' }})
         .then(response => response.json())
-        .then(() => login(authDispatch, userObserver))
         .then(resp => setTier(authDispatch, resp.type))
         .catch(() => {
           axios.post('http://localhost:8080/api/users/register', {
@@ -60,7 +60,6 @@ function RoutesList() {
             email : userObserver.email,
             type: 0
           })
-            .then(() => login(authDispatch, userObserver))
             .catch(function (error) {
                 toast.error(`Unable to create an account: ${error}`);
             });
