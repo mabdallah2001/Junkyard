@@ -14,15 +14,13 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 // Firebase
+import { auth } from "../../../firebase";
 import {
-  getAuth, createUserWithEmailAndPassword,updateProfile
+  createUserWithEmailAndPassword,updateProfile
 } from "firebase/auth";
 
 // Toast
 import { toast } from 'react-toastify';
-
-//post data
-import axios from "axios";
 
 const theme = createTheme();
 
@@ -33,25 +31,19 @@ export default function Register() {
   const [registerName, setRegisterName] = useState("");
   const [emailInValid,setEmailInValid] = useState(false);
   const [passwordInValid, setPasswordInValid] = useState(true);
-  const auth = getAuth();
-  const user = auth.currentUser;
 
   const register = async () => {
     try {
-      const credential = await createUserWithEmailAndPassword(
+      await createUserWithEmailAndPassword(
         auth,
         registerEmail,
         registerPassword
-      );
-      
-      await axios.post('http://localhost:8080/api/users/register', {
-        uid: credential.uid,
-        email: credential.email,
+      ).then(
+        ()=>{
+          return updateProfile(auth.currentUser,{
+            displayName :registerName,
+          })
       });
-
-      await updateProfile(user,{
-        displayName: registerName,
-      })
     } catch (error) {
       toast.error(error.message);
     }

@@ -28,6 +28,8 @@ public interface ItemRepository {
     // GET ALL ITEMS
     List<Map<String, Object>> getItems() throws NotFoundException;
 
+    List<Map<String, Object>> queryItems(String query) throws NotFoundException;
+
     // UPDATE AN ITEM
     int updateItem(int id, String name, int quantity, String imageUrl, String description, BigDecimal price, int garageId, String uid)
             throws InternalServerErrorException, AuthException;

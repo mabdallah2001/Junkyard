@@ -32,11 +32,15 @@ import ItemDetails from "./pages/Dashboard/Items/details";
 import Tier from "./pages/Dashboard/Tier";
 
 // Context
-import {AppControllerProvider, AuthControllerProvider, useAuthController, login} from "./context";
+import {AppControllerProvider, AuthControllerProvider, useAuthController, login, setTier} from "./context";
 
 // Firebase
 import { auth } from './firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+
+//post data
+import axios from "axios";
+import { toast } from "react-toastify";
 
 function RoutesList() {
   const [authController, authDispatch] = useAuthController();
@@ -45,6 +49,21 @@ function RoutesList() {
   onAuthStateChanged(auth, (userObserver) => {
     if (userObserver && !user) {
       login(authDispatch, userObserver);
+      fetch(`http://localhost:8080/api/users?uid=${userObserver.uid}`, {
+      method: "GET",
+      headers: { 'Content-Type': 'application/json' }})
+        .then(response => response.json())
+        .then(resp => setTier(authDispatch, resp.type))
+        .catch(() => {
+          axios.post('http://localhost:8080/api/users/register', {
+            uid : userObserver.uid,
+            email : userObserver.email,
+            type: 0
+          })
+            .catch(function (error) {
+                toast.error(`Unable to create an account: ${error}`);
+            });
+        })
     }
   });
 
