@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react'; 
 import { Button, FormControl, Input, InputLabel } from '@mui/material/';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 
 const Form = ({ action, id, item }) => {
   const navigate = useNavigate();
+
+  const [searchParams, ] = useSearchParams();
+  const garageId = parseInt(searchParams.get("garageId"));
+
   const auth = getAuth();
   const user = auth.currentUser;
   const [values, setValues] = useState({
@@ -13,8 +17,8 @@ const Form = ({ action, id, item }) => {
     image_url: '',
     description: '',
     price: '',
-    garage_id: 1, // TO BE CHANGED
-    uid: user.id,
+    garage_id: garageId,
+    uid: user.uid,
   })
 
   const handleChange = (prop) => (event) => {
@@ -45,6 +49,8 @@ const Form = ({ action, id, item }) => {
   }
   
   useEffect(() => {
+    console.log(garageId)
+
     if(item === null) return
     if (Object.keys(item).length === 0) return
     
