@@ -29,7 +29,7 @@ const Form = ({ action, id, item }) => {
     let method = 'POST'
 
     if (action === 'update') {
-      url += `${id}`
+      url += id
       method = 'PUT'
     }
 
