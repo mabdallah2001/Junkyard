@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Container, Grid, Button, Link } from '@mui/material/';
+import { Container, Grid, Button, Link, Typography } from '@mui/material/';
 
 import { useSearchParams, useNavigate } from "react-router-dom";
 
 import CommentCard from '../../../components/CommentContainer/CommentView';
 import New from '../../Dashboard/New-Comment/new';
+import Items from "../Items/index";
 
 import { useAuthController, useAppController, setRefresh } from '../../../context';
 
@@ -42,17 +43,32 @@ const Comments = () => {
 
   return (
     <>
-      {user && <New/>}
-      <br></br>
-      <Container maxWidth="lg">
-        <Grid container spacing={3}>
-          {comments.map((item, idx) => (
-            <Grid item sm={4} md={4} key={idx}>
-              <CommentCard data={item} />
-            </Grid>
-          ))}
+      <Grid spacing={2} mt={6}>
+        <Typography variant="h4">
+          Items
+        </Typography>
+      </Grid>
+      <Grid container item p={0} m={0} xs={12} direction="column">
+        <Grid container item p={0} m={0} xs={8} direction="column">
+          <Items />
         </Grid>
-      </Container>
+      </Grid>
+      <Grid container spacing={2} mt={5}>
+        <Grid container item p={0} m={0} xs={12} direction="column">
+          {user && <New />}
+          <br></br>
+          <Container maxWidth="lg" p={0}>
+            <Grid container spacing={3}>
+              {comments.map((item, idx) => (
+                <Grid item sm={4} md={4} key={idx}>
+                  <CommentCard data={item} />
+                </Grid>
+              ))}
+            </Grid>
+          </Container>
+          
+        </Grid>
+      </Grid>
     </>
   )
 }
