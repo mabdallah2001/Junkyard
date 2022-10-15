@@ -28,14 +28,20 @@
 
 ## Getting Started
 ### Client side
-1. Install all dependancies
+1. Install all dependencies at project root folder
 ```
 npm install
+```
+or
+```
 yarn install
 ```
 2. Turn server on localhost:3000
 ```
 npm start
+```
+or
+```
 yarn start
 ```
 
@@ -127,4 +133,3 @@ psql junkyarddb < junkyard_db_seed.sql
 - react-toastify: 9.0.8
 - styled-components: 5.3.5
 - web-vitals: 2.1.4
-
