@@ -38,31 +38,20 @@ export default function Register() {
 
   const register = async () => {
     try {
-      await createUserWithEmailAndPassword(
+      const credential = await createUserWithEmailAndPassword(
         auth,
         registerEmail,
         registerPassword
-      ).then(()=>{
-        if (user) {
-        axios.post('http://localhost:8080/api/users/register', {
-        uid : user.uid,
-        email : user.email,
-    })
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    
-        } else {
-          // No user is signed in.
-        }
-        return updateProfile(auth.currentUser,{
-          displayName :registerName,
-        })
-        
+      );
+      
+      await axios.post('http://localhost:8080/api/users/register', {
+        uid: credential.uid,
+        email: credential.email,
       });
+
+      await updateProfile(user,{
+        displayName: registerName,
+      })
     } catch (error) {
       toast.error(error.message);
     }
