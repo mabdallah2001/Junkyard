@@ -38,6 +38,9 @@ import {AppControllerProvider, AuthControllerProvider, useAuthController, login,
 import { auth } from './firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 
+//post data
+import axios from "axios";
+
 function RoutesList() {
   const [authController, authDispatch] = useAuthController();
   const { user } = authController;
@@ -51,8 +54,18 @@ function RoutesList() {
       headers: { 'Content-Type': 'application/json' }})
         .then(response => response.json())
         .then(resp => setTier(authDispatch, resp.type))
-        .catch(error => console.log(error)
-      )
+        .catch(error => {
+          axios.post('http://localhost:8080/api/users/register', {
+            uid : user.uid,
+            email : user.email,
+            })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        })
 
       // Fetch Data
       // TODO: Get user data from database
