@@ -1,10 +1,15 @@
 import * as React from 'react';
+
+//MUI 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { Divider } from '@mui/material';
+
+//Navigate
 import { useNavigate } from 'react-router-dom';
  
 const bull = (
@@ -21,14 +26,19 @@ function CommentCard({data}) {
   const { id, content } = data;
   
   return (
-    <Card sx={{ minWidth: 275 }}>
+    <Card sx={{ minWidth: 275 ,marginbottom: 20,
+      alignitems: "center",
+      flexdirection: "column",
+      backgroundColor:'lightgray',
+      borderradius: 35 }}>
       <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+        <Typography variant="body2" color="text.secondary">
           Comment ID: {id}
         </Typography>
-        <Typography variant="h5" component="div">
+        <Divider light />
+        <Box px={1} mt={1} sx={{overflow:'auto' }} color="text.primary">
           {content}
-        </Typography>
+        </Box>
       </CardContent>
     </Card>
   );

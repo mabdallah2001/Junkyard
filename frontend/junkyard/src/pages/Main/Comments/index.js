@@ -11,6 +11,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import { Divider } from '@mui/material';
 
 // React router
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -72,20 +73,22 @@ function Comments() {
         <Grid comment key={idx} xs={12} sm={6} md={4}>
           {console.log(comment)}
           <Card
-            sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+            sx={{ height: '100%', display: 'flex', flexDirection: 'column',backgroundColor:'lightgray' }}
           >
             <CardContent sx={{ flexGrow: 1 }}>
               <Stack direction="row" justifyContent="space-between">
-                <Typography gutterBottom variant="h5" component="h2">
+                <Typography variant="body2" color="text.secondary">
                   {comment.id}
                 </Typography>
               </Stack>
-              <Typography>
+              <Divider light />
+              <Box px={1} mt={1} sx={{overflow:'auto' }} color="text.primary">
                 {comment.content}
-              </Typography>
+              </Box>
+              <Divider light />
             </CardContent>
             <CardActions>
-              <Button size="small" onClick={() => navigate(`/comment?id=${comment.id}`)} fullWidth>View</Button>
+              <Button variant="outlined" sx={{color:'white', backgroundColor:'#102027', borderRadius:'25px'}} size="small" onClick={() => navigate(`/comment?id=${comment.id}`)} fullWidth>View</Button>
             </CardActions>
           </Card>
         </Grid>

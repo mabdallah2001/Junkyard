@@ -85,7 +85,7 @@ const Form = ({ action, id, comment }) => {
             <br />
             
           </FormControl>
-          <Button variant="contained" type="submit">Submit</Button>
+          <Button variant="contained"  sx={{color:'white', backgroundColor:'#102027', borderRadius:'25px'}}  type="submit">Submit</Button>
         </form>
       </div>
         
