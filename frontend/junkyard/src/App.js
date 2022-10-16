@@ -1,3 +1,5 @@
+import {useState} from 'react'
+
 // React Router
 import {Routes, Route, Outlet, Navigate} from "react-router-dom";
 
@@ -53,10 +55,11 @@ function RoutesList() {
   const [authController, authDispatch] = useAuthController();
   const { user } = authController;
 
-  onAuthStateChanged(auth, (userObserver) => {
-    if (userObserver && !user) {
-      login(authDispatch, userObserver);
-      fetch(`http://localhost:8080/api/users?uid=${userObserver.uid}`, {
+  const [loading, setLoading] = useState(false);
+
+  async function getUser(userObserver) {
+    setLoading(true);
+    await fetch(`http://localhost:8080/api/users?uid=${userObserver.uid}`, {
       method: "GET",
       headers: { 'Content-Type': 'application/json' }})
         .then(response => {
@@ -74,6 +77,16 @@ function RoutesList() {
                 toast.error(`Unable to create an account: ${error}`);
             });
         })
+          .then(() => login(authDispatch, userObserver))
+          .catch(function (error) {
+              toast.error(`Unable to create an account: ${error}`);
+          });
+      })
+  }
+
+  onAuthStateChanged(auth, (userObserver) => {
+    if (userObserver && !user && !loading) {
+      getUser(userObserver);
     }
   });
 
