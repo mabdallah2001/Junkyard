@@ -1,3 +1,5 @@
+import {useState} from 'react'
+
 // React Router
 import {Routes, Route, Outlet, Navigate} from "react-router-dom";
 
@@ -46,24 +48,40 @@ function RoutesList() {
   const [authController, authDispatch] = useAuthController();
   const { user } = authController;
 
-  onAuthStateChanged(auth, (userObserver) => {
-    if (userObserver && !user) {
-      login(authDispatch, userObserver);
-      fetch(`http://localhost:8080/api/users?uid=${userObserver.uid}`, {
+  const [loading, setLoading] = useState(false);
+
+  async function getUser(userObserver) {
+    setLoading(true);
+    await fetch(`http://localhost:8080/api/users?uid=${userObserver.uid}`, {
       method: "GET",
-      headers: { 'Content-Type': 'application/json' }})
-        .then(response => response.json())
-        .then(resp => setTier(authDispatch, resp.type))
-        .catch(() => {
-          axios.post('http://localhost:8080/api/users/register', {
-            uid : userObserver.uid,
-            email : userObserver.email,
-            type: 0
-          })
-            .catch(function (error) {
-                toast.error(`Unable to create an account: ${error}`);
-            });
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then(response => {
+        if(response.ok) {
+          return response.json();
+        }
+        throw new Error('No user found');
+      })
+      .then(resp => {
+        setTier(authDispatch, resp.type);
+        login(authDispatch, userObserver);
+      })
+      .catch(() => {
+        axios.post('http://localhost:8080/api/users/register', {
+          uid : userObserver.uid,
+          email : userObserver.email,
+          type: 0
         })
+          .then(() => login(authDispatch, userObserver))
+          .catch(function (error) {
+              toast.error(`Unable to create an account: ${error}`);
+          });
+      })
+  }
+
+  onAuthStateChanged(auth, (userObserver) => {
+    if (userObserver && !user && !loading) {
+      getUser(userObserver);
     }
   });
 
