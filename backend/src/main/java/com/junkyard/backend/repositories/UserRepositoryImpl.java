@@ -36,6 +36,7 @@ public class UserRepositoryImpl implements UserRepository {
         try {
             return jdbcTemplate.update(SQL_CREATE, new Object[] {uid, email, type});
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             throw new AuthException("Invalid details. Failed to create account");
         }
     }

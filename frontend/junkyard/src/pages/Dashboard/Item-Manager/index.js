@@ -18,6 +18,7 @@ const ItemManager = () => {
   const user = auth.currentUser;
   const navigate = useNavigate();
 
+  const [garage_id, setGarage_id] = useState(null);
   const [items, setItems] = useState({});
   const [values, setValues] = useState({
     name: '',
@@ -25,7 +26,7 @@ const ItemManager = () => {
     image_url: '',
     description: '',
     price: '',
-    garage_id: 1, // TO BE CHANGED
+    garage_id: garage_id,
     uid: user.id,
   })
 
@@ -44,14 +45,17 @@ const ItemManager = () => {
     fetchItems()
   }, []);
 
-  useEffect(() => {
-    console.log(values)
-  }, [values]);
+  useEffect(() => { 
+    if (Object.keys(items).length === 0) return
+    setGarage_id(items[0].garage_id)
+  }, [items]);
+
 
   const handleChange = (item, prop) => (event) => {
     setValues({
       ...item,
       price: item.price.toString(),
+      garage_id: item.garage_id,
       [prop]: event.target.value
     })
   }
@@ -102,6 +106,13 @@ const ItemManager = () => {
       <Typography variant='h4'>
         Item Manager
       </Typography>
+      <Button
+        variant="contained"
+        pb={2}
+        onClick={() => navigate(`/dashboard/new-item?garageId=${garage_id}`)}
+      >
+        Create Item
+      </Button>
       
       <TableContainer component={Paper} mt={2}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">

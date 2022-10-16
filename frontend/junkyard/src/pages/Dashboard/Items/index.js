@@ -29,12 +29,6 @@ const Items = () => {
 
   return (
     <>
-      <Container maxWidth="lg" pb={2}>
-        <Button variant="contained" pb={2} onClick={() => navigate(`/dashboard/new-item`)}>
-          Create Item
-        </Button>
-      </Container>
-      <br></br>
       <Container maxWidth="lg">
         <Grid container spacing={3}>
           {items.map(item => (

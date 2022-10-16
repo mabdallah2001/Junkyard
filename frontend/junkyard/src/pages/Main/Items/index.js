@@ -34,7 +34,7 @@ function Items() {
     const fetchData = async () => {
       if (searchParams.get("query")) {
         // TODO: API fetch query
-        await fetch(`http://localhost:8080/api/items/?query=${query}`, {
+        await fetch(`http://localhost:8080/api/items?query=${query}`, {
           method: "GET",
           headers: { 'Content-Type': 'application/json' }
         })
