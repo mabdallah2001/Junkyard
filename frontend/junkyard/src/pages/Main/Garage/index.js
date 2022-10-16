@@ -47,4 +47,4 @@ function Garage() {
     </Grid>
   )
 }
-export default Comments;
+export default Garage;
