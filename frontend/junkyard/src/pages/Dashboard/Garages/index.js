@@ -60,7 +60,7 @@ function Garages() {
         Your Garages
       </Typography>
       <Grid container spacing={2}>
-        <Grid item xs={3}>
+        <Grid item xs={12}>
           <Card sx={{ maxWidth: 250, height:351}} onClick={ () => navigate(`/dashboard/garage`)}>
             <CardActionArea>
               <CardMedia
@@ -78,16 +78,15 @@ function Garages() {
           </Card>
         </Grid>
         {data.map((item, idx) => (
-          <Grid item key={idx} xs={3}>
+          <Grid item key={idx} xs={4}>
             <Card sx={{ maxWidth: 250}}>
               <CardActionArea>
-                <img
-                 src={item.image_url}
-                 srcSet={item.image_url}
-                 alt={item.name}
-                 loading="lazy"
-                 style={{maxWidth: '100%'}}
-                 onClick={() => navigate(`/dashboard/item-manager?id=${item.id}`)}
+                <CardMedia
+                  component="img"
+                  height="250"
+                  image= {item.image}
+                  alt="image"
+                  onClick={() => navigate(`/dashboard/item-manager?id=${item.id}`)}
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h6" component="div">
