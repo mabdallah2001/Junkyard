@@ -81,7 +81,7 @@ function RoutesList() {
           .catch(function (error) {
               toast.error(`Unable to create an account: ${error}`);
           });
-      })
+      
   }
 
   onAuthStateChanged(auth, (userObserver) => {

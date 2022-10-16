@@ -44,7 +44,7 @@ function Garage() {
       <Grid container item p={0} m={0} xs={10} direction="column">
         <Items />
       </Grid>
-    </>
+    </Grid>
   )
 }
 export default Comments;
