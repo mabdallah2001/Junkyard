@@ -1,24 +1,18 @@
-import { useState, useEffect } from 'react';
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import axios from 'axios'
 
-import {toast} from "react-toastify"
 
-import { useAuthController } from "../../../context";
+
+
+
 
 function Garage() {
   
   const navigate = useNavigate();
-
-  const [authController, authDispatch] = useAuthController();
-  const { user } = authController;
-
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [garID, setGarID] = useState(parseInt(searchParams.get('gid')));
 
   const [garName, setGarName] = useState();
   const [image, setImage] = useState();
@@ -29,60 +23,14 @@ function Garage() {
   const [post, setPost] = useState();
   const [country, setCountry] = useState();
   const [description, setDescription] = useState();
-
-  const handleSubmit = () => {
-
-    if(!garID){      
-      axios.post("http://localhost:8080/api/garage/", {
-        name: garName || "",
-        imageURL: image || "",
-        address1: address1 || "",
-        address2: address2 || "",
-        city: city || "",
-        country: country || "",
-        postcode: post || 0,
-        description: description || "",
-        uid: user.uid
-      },
-      {
-        headers:{"Content-Type" : "application/json"}
-      })
-      .then(() => {
-        toast.success("Garage created");
-        navigate("/dashboard/garages", {state: {}, replace: true});
-      })
-      .catch((e) => toast.error(`Unable to create a new garage: ${e}`));
-    }
-    else {      // if user is updating existing garage
-      axios.put("http://localhost:8080/api/garage/" + garID, {
-        name: garName || "",
-        imageURL: image || "",
-        address1: address1 || "",
-        address2: address2 || "",
-        city: city || "",
-        country: country || "",
-        postcode: post || 0,
-        description: description || "",
-        uid: user.uid
-      },
-      {
-        headers:{"Content-Type" : "application/json"}
-      })
-      .then(() => {
-        toast.success("Garage updated");
-        navigate("/dashboard/garages", {state: {}, replace: true});
-      })
-      .catch((e) => toast.error(`Unable to create a new garage: ${e}`));
-    }
-  }
-
+  
   return (
     <>
      <Typography variant="h5" gutterBottom>
         Add / Update Garage
       </Typography>
       <br></br><br></br>
-      <Grid container spacing={3}>
+<Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <TextField
             required
@@ -158,7 +106,7 @@ function Garage() {
             name="postal"
             label="Zip / Postal code"
             fullWidth
-            onChange={event => setPost(parseInt(event.target.value))}
+            onChange={event => setPost(event.target.value)}
             variant="standard"
           />
         </Grid>
@@ -187,7 +135,7 @@ function Garage() {
           </Grid>
         </Grid>
 
-        <Button variant="contained" sx={{ mt: 10, ml: 63 }} onClick={() => handleSubmit()}>Save Changes</Button>
+        <Button variant="contained" sx={{ mt: 10, ml: 63 }} onClick={() => navigate("/dashboard/garages")}>Save Changes</Button>
 
 
 
