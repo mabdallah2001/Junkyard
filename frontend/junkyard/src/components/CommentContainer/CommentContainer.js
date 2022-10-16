@@ -6,6 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
+import { Divider } from '@mui/material';
 
 import { useAppController, setRefresh } from '../../context';
  
@@ -47,16 +48,17 @@ function CommentCard({data}) {
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+        <Typography variant="body2" color="text.secondary">
           Comemnt ID:{id}
         </Typography>
-        <Typography variant="h5" component="div">
+        <Divider light />
+        <Box px={1} mt={1} sx={{overflow:'auto' }}>
           {content}
-        </Typography>
+        </Box>
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={() => navigate(`/dashboard/edit-comment/${id}`)}>Edit</Button>
-        <Button size="small" onClick={handleDelete}>Delete</Button>
+        <Button variant="outlined"  size="small" onClick={() => navigate(`/dashboard/edit-comment/${id}`)}>Edit</Button>
+        <Button variant="outlined"  size="small" onClick={handleDelete}>Delete</Button>
       </CardActions>
     </Card>
   );

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
-import { Container, Grid, Typography, Button, Link } from '@mui/material/';
+import { Container, Grid, Typography, Button, Link,Divider,Box } from '@mui/material/';
 
 
 const Comment = () => {
@@ -30,14 +30,14 @@ const Comment = () => {
           <Typography variant="h4" mt={4}>
             {comment.id}
           </Typography>
-
+          <Divider light />
           <br></br>
-          <Typography variant="p" mt={5}>
+          <Box px={1} mt={1} sx={{overflow:'auto' }}>
             {comment.content}
-          </Typography>
+          </Box>
         </Grid>
       </Container>
-
+      <Divider light />
       <br></br>
 
       <Button variant="contained" pb={2} onClick={() => navigate(`/dashboard/edit-comment/${id}`)}>

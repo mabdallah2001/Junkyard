@@ -32,10 +32,9 @@ function CommentCard({data}) {
           Comment ID: {id}
         </Typography>
         <Divider light />
-        <Typography variant="h5" component="div">
+        <Box px={1} mt={1} sx={{overflow:'auto' }}>
           {content}
-        </Typography>
-        <Divider component="li" />
+        </Box>
       </CardContent>
     </Card>
   );

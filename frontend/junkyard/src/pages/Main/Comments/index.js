@@ -82,13 +82,13 @@ function Comments() {
                 </Typography>
               </Stack>
               <Divider light />
-              <Typography>
+              <Box px={1} mt={1} sx={{overflow:'auto' }}>
                 {comment.content}
-              </Typography>
-              <Divider component="li" />
+              </Box>
+              <Divider light />
             </CardContent>
             <CardActions>
-              <Button size="small" onClick={() => navigate(`/comment?id=${comment.id}`)} fullWidth>View</Button>
+              <Button variant="outlined" size="small" onClick={() => navigate(`/comment?id=${comment.id}`)} fullWidth>View</Button>
             </CardActions>
           </Card>
         </Grid>
