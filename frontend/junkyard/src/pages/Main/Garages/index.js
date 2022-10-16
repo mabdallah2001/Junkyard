@@ -8,13 +8,46 @@ import Box from '@mui/material/Box';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import CircularProgress from '@mui/material/CircularProgress';
-import axios from 'axios';
 
 // React router
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 // Toast
 import { toast } from 'react-toastify';
+
+// TODO: Remove | Dummy data
+const dummyData = [
+  {
+    id: "1",
+    name: "Garage Name 1",
+    details: "Garage details",
+    hours: "10am - 6pm",
+    location: "Address"
+  },
+  {
+    id: "13",
+    name: "Garage Name 2",
+    details: "Garage details",
+    hours: "10am - 6pm",
+    location: "Address"
+  },
+  {
+    id: "1235",
+    name: "Garage Name 3",
+    details: "Garage details",
+    hours: "10am - 6pm",
+    location: "Address"
+  }
+]
+
+// TODO: Remove | Simulate api call
+function simulateAPI(data, time) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(data);
+    }, time);
+  });
+}
 
 function Garages() {
 
@@ -31,10 +64,11 @@ function Garages() {
 
     const fetchData = async () => {
       if (searchParams.get("query")) {
-        axios.get("http://localhost:8080/api/garage/" )
+        // TODO: API fetch query
+        simulateAPI(dummyData, 3000)
           .then((r) => {
             if (mounted) {
-              setData(r.data);
+              setData(r);
               setQuerySearched(true);
             }
           })
@@ -44,10 +78,10 @@ function Garages() {
           })
       } else {
         // TODO: API fetch default garages
-        axios.get("http://localhost:8080/api/garage/")
+        simulateAPI(dummyData, 1000)
           .then((r) => {
             if (mounted) {
-              setData(r.data);
+              setData(r);
               setQuerySearched(true);
             }
           })
@@ -74,13 +108,16 @@ function Garages() {
             <Card sx={{ display: 'flex' }}>
               <CardContent sx={{ flex: 1 }}>
                 <Typography component="h2" variant="h5">
-                  {item.id}. {item.name}
+                  {item.name}
+                </Typography>
+                <Typography variant="subtitle1" color="text.secondary">
+                  {item.hours}
                 </Typography>
                 <Typography variant="subtitle1">
-                  {item.address1}{item.address2}, {item.city}, {item.postcode}, {item.country}
+                  {item.location}
                 </Typography>
                 <Typography variant="subtitle1" paragraph>
-                  {item.description}
+                  {item.details}
                 </Typography>
               </CardContent>
             </Card>
