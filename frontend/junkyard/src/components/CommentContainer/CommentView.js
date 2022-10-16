@@ -26,13 +26,17 @@ function CommentCard({data}) {
   const { id, content } = data;
   
   return (
-    <Card sx={{ minWidth: 275 }}>
+    <Card sx={{ minWidth: 275 ,marginbottom: 20,
+      alignitems: "center",
+      flexdirection: "column",
+      backgroundColor:'lightgray',
+      borderradius: 35 }}>
       <CardContent>
         <Typography variant="body2" color="text.secondary">
           Comment ID: {id}
         </Typography>
         <Divider light />
-        <Box px={1} mt={1} sx={{overflow:'auto' }}>
+        <Box px={1} mt={1} sx={{overflow:'auto' }} color="text.primary">
           {content}
         </Box>
       </CardContent>

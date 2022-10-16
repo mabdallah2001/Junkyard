@@ -73,7 +73,7 @@ function Comments() {
         <Grid comment key={idx} xs={12} sm={6} md={4}>
           {console.log(comment)}
           <Card
-            sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+            sx={{ height: '100%', display: 'flex', flexDirection: 'column',backgroundColor:'lightgray' }}
           >
             <CardContent sx={{ flexGrow: 1 }}>
               <Stack direction="row" justifyContent="space-between">
@@ -82,13 +82,13 @@ function Comments() {
                 </Typography>
               </Stack>
               <Divider light />
-              <Box px={1} mt={1} sx={{overflow:'auto' }}>
+              <Box px={1} mt={1} sx={{overflow:'auto' }} color="text.primary">
                 {comment.content}
               </Box>
               <Divider light />
             </CardContent>
             <CardActions>
-              <Button variant="outlined" size="small" onClick={() => navigate(`/comment?id=${comment.id}`)} fullWidth>View</Button>
+              <Button variant="outlined" sx={{color:'white', backgroundColor:'#102027', borderRadius:'25px'}} size="small" onClick={() => navigate(`/comment?id=${comment.id}`)} fullWidth>View</Button>
             </CardActions>
           </Card>
         </Grid>

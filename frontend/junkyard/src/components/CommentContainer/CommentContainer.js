@@ -46,19 +46,24 @@ function CommentCard({data}) {
   }
   
   return (
-    <Card sx={{ minWidth: 275 }}>
+    <Card  sx={{ minWidth: 275 ,marginbottom: 20,
+      alignitems: "center",
+      flexdirection: "column",
+      backgroundColor:'lightgray',
+      borderradius: 35 }}>
       <CardContent>
         <Typography variant="body2" color="text.secondary">
           Comemnt ID:{id}
         </Typography>
         <Divider light />
-        <Box px={1} mt={1} sx={{overflow:'auto' }}>
+        <Box px={1} mt={1} sx={{overflow:'auto' }} color="text.primary">
           {content}
         </Box>
       </CardContent>
+      <Divider light />
       <CardActions>
-        <Button variant="outlined"  size="small" onClick={() => navigate(`/dashboard/edit-comment/${id}`)}>Edit</Button>
-        <Button variant="outlined"  size="small" onClick={handleDelete}>Delete</Button>
+        <Button variant="outlined" sx={{color:'white', backgroundColor:'#102027', borderRadius:'25px'}}  size="small" onClick={() => navigate(`/dashboard/edit-comment/${id}`)}>Edit</Button>
+        <Button variant="outlined" sx={{color:'white', backgroundColor:'#102027', borderRadius:'25px'}}  size="small" onClick={handleDelete}>Delete</Button>
       </CardActions>
     </Card>
   );

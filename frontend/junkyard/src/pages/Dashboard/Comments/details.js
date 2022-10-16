@@ -40,7 +40,7 @@ const Comment = () => {
       <Divider light />
       <br></br>
 
-      <Button variant="contained" pb={2} onClick={() => navigate(`/dashboard/edit-comment/${id}`)}>
+      <Button variant="contained" sx={{color:'white', backgroundColor:'#102027', borderRadius:'25px'}} pb={2} onClick={() => navigate(`/dashboard/edit-comment/${id}`)}>
         Edit Comment
       </Button>
     </>
