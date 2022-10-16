@@ -27,11 +27,17 @@ function Garage() {
   }, []);
 
   return (
-   
     <Grid container spacing={2} mt={5}>
-   
+    
       {data.map((item) => (
         <Grid item>
+          <img
+           src={item.image_url}
+           srcSet={item.image_url}
+           alt={item.name}
+           loading="lazy"
+           style={{maxHeight: '20%'}}
+          />
           <Typography fontSize={30}>
             {item.id}. {item.name}
           </Typography>
