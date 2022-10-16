@@ -102,6 +102,12 @@ psql -U postgres --file junkyard_db.sql
 ```
 psql junkyarddb < junkyard_db_seed.sql
 ```
+#### Running service in editor (which must wait the database is connected locally)
+1. Navigate to backend folder
+2. Run this script
+```
+./mvnw spring-boot:run
+```
 
 ## Libraries and dependencies
 ### Server side
