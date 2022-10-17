@@ -87,6 +87,7 @@ function Garages() {
                   alt={item.name}
                   loading="lazy"
                   style={{maxWidth: '100%'}}
+                  onClick={() => navigate(`/dashboard/item-manager?id=${item.id}`)}
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h6" component="div">

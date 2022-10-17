@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'; 
-import { Button, FormControl, Input, InputLabel } from '@mui/material/';
+import { Button, Container, FormControl, Input, InputLabel } from '@mui/material/';
 // import { useNavigate } from "react-router-dom";
 import { useSearchParams, useNavigate } from "react-router-dom";
 
@@ -74,8 +74,8 @@ const Form = ({ action, id, comment }) => {
 
   return(
     <>
+      <Container>
       <h2>{ action === 'create' ? 'New' : 'Edit'} comment</h2>
-      <div>
         <form onSubmit={handleSubmit}>
           <FormControl fullWidth={true} margin="none">
             <FormControl variant="standard" fullWidth={true}>
@@ -87,7 +87,7 @@ const Form = ({ action, id, comment }) => {
           </FormControl>
           <Button variant="contained"  sx={{color:'white', backgroundColor:'#102027', borderRadius:'25px'}}  type="submit">Submit</Button>
         </form>
-      </div>
+      </Container>
         
     </>
   )

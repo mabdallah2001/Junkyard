@@ -58,32 +58,37 @@ function Garage() {
     }, [refresh])
 
   return (
-   
-    <Grid container spacing={2} mt={5}>
+   <Grid textAlign={"center"}>
+    <Grid>
    
       {data.map((item) => (
         <Grid item>
+          <Typography fontSize={30} fontWeight={"bold"}>
+            {item.id}. {item.name}
+          </Typography>
+          <Typography >
+            {item.address1}, {item.city} {item.postcode}, {item.country}
+          </Typography>
           <img
            src={item.image_url}
            srcSet={item.image_url}
            alt={item.name}
            loading="lazy"
-           style={{maxHeight: '20%'}}
+           style={{maxHeight: 500, marginTop: 30}}
+          
           />
-          <Typography fontSize={30}>
-            {item.id}. {item.name}
-          </Typography>
-          <Typography>
-            {item.address1}, {item.city} {item.postcode}, {item.country}
-          </Typography>
+          
         </Grid>
         ))}
 
-      <Grid container item p={0} m={0} xs={10} direction="column">
+      <Grid container item p={0} m={0} xs={10} direction="column" mb={8}>
+        <Typography fontSize={27} fontWeight={"bold"} mt={10} ml={20} mb={8} >
+          Garage Items
+        </Typography>
         <Items />
       </Grid>
-      <br></br>
-          <Container maxWidth="lg" p={0}>
+      {user && <New/>}
+          <Container maxWidth="lg" p={0} mt={5}>
             <Grid container spacing={3}>
               {comments.map((item, idx) => (
                 <Grid item sm={4} md={4} key={idx}>
@@ -93,7 +98,7 @@ function Garage() {
             </Grid>
           </Container>
     </Grid>
-    
+    </Grid>
     
   )
 }

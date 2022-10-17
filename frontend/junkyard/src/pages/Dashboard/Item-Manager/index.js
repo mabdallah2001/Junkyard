@@ -10,7 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import { getAuth } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate , useSearchParams} from "react-router-dom";
 import {toast} from "react-toastify";
 
 const ItemManager = () => {
@@ -29,6 +29,10 @@ const ItemManager = () => {
     garage_id: garage_id,
     uid: user.id,
   })
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [garID, setGarID] = useState(parseInt(searchParams.get('id')));
+
 
   const fetchItems = async () => {
     return await fetch("http://localhost:8080/api/items/", {
@@ -109,7 +113,7 @@ const ItemManager = () => {
       <Button
         variant="contained"
         pb={2}
-        onClick={() => navigate(`/dashboard/new-item?garageId=${garage_id}`)}
+        onClick={() => navigate(`/dashboard/new-item?garageId=${garID}`)}
       >
         Create Item
       </Button>
